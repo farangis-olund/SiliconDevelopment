@@ -42,7 +42,8 @@ public class AccountController : Controller
 		var user = await _userManager.GetUserAsync(User);
 		if (user != null) {
 			if (viewModel.BasicInfo != null) 
-			{ 
+			{
+				
 				if (viewModel.BasicInfo.FirstName !=null && viewModel.BasicInfo.LastName != null && viewModel.BasicInfo.Email != null)
 				{
 					user.FirstName = viewModel.BasicInfo.FirstName;
@@ -124,9 +125,13 @@ public class AccountController : Controller
 		{
 			ProfileInfo = new AccountProfileModel
 			{
+				ProfileImgUrl = user.ProfileImgUrl,
 				FirstName = user.FirstName,
 				LastName = user.LastName,
-				Email = user.Email!
+				UserName = user.Email!,
+				Email = user.Email!,
+				
+				IsExternalAccount = user.IsExternalAccount
 			},
 			BasicInfo = new AccountDetailBasicInfoModel
 			{

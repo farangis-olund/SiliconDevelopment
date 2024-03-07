@@ -1,15 +1,15 @@
 ﻿@model AccountDetailViewModel
 <aside>
 	<div class="profile-info">
-		<img src="~/images/@Model.ProfileInfo.ProfileImg" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+		<img src="~/images/@Model.ProfileInfo.ProfileImgUrl" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
 		<h5>@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")</h5>
 		<p>@Model.ProfileInfo.Email</p>
 	</div>
 
 	<nav>
-		<a class="btn-theme-s" asp-controller="Account" asp-action="Index"><i class="fa-regular fa-gear"></i> Account Details</a>
-		<a class="btn-transparent" asp-controller="Account" asp-action="Security"><i class="fa-regular fa-lock"></i> Security</a>
-		<a class="btn-transparent" asp-controller="Account" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i> Saved Courses</a>
-		<a class="btn-transparent" asp-controller="Auth" asp-action="SignOut"><i class="fa-regular fa-right-from-bracket"></i> Sign Out</a>
+		<a class="btn-theme-s" asp-controller="Account" asp-action="Index"><i class="fa-regular fa-gear"></i> <span>Account Details</span></a>
+		<a class="btn-transparent" asp-controller="Account" asp-action="Security"><i class="fa-regular fa-lock"></i> <span>Security</span> </a>
+		<a class="btn-transparent" asp-controller="Account" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i> <span>Saved Courses</span></a>
+		<a class="btn-transparent" asp-controller="Auth" asp-action="SignOut"><i class="fa-regular fa-right-from-bracket"></i> <span>Sign Out</span></a>
 	</nav>
 </aside>

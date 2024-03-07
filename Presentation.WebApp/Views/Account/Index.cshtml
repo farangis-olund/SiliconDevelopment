@@ -3,6 +3,7 @@
 @{
 	ViewData["Title"] = $"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}'s profile"; 
 }
+
 <div class="container">
 	<section id="account-details">
 		<partial name="_AsideProfile.cshtml" />
@@ -16,18 +17,44 @@
 					<div class="content">
 						<div id="form-firstname" class="input-group">
 							<label asp-for=BasicInfo.FirstName></label>
-							<span asp-validation-for="BasicInfo.FirstName"></span>
-							<input asp-for="BasicInfo.FirstName" />
+							@if (Model.ProfileInfo.IsExternalAccount)
+							{
+								<input asp-for="BasicInfo.FirstName" disabled />
+								<input asp-for="BasicInfo.FirstName" hidden />
+							} else
+							{
+								<span asp-validation-for="BasicInfo.FirstName"></span>
+								<input asp-for="BasicInfo.FirstName" />
+							}
+							
 						</div>
 						<div id="form-lastname" class="input-group">
 							<label asp-for=BasicInfo.LastName></label>
-							<span asp-validation-for="BasicInfo.LastName"></span>
-							<input asp-for="BasicInfo.LastName" />
+							@if (Model.ProfileInfo.IsExternalAccount)
+							{
+								<input asp-for="BasicInfo.LastName" disabled />
+								<input asp-for="BasicInfo.LastName" hidden />
+							}
+							else
+							{
+								<span asp-validation-for="BasicInfo.LastName"></span>
+								<input asp-for="BasicInfo.LastName" />
+							}
+							
 						</div>
 						<div id="form-email" class="input-group">
 							<label asp-for=BasicInfo.Email></label>
-							<span asp-validation-for="BasicInfo.Email"></span>
-							<input asp-for="BasicInfo.Email" />
+							@if (Model.ProfileInfo.IsExternalAccount)
+							{
+								<input asp-for="BasicInfo.Email" disabled />
+								<input asp-for="BasicInfo.Email" hidden />
+							}
+							else
+							{
+								<span asp-validation-for="BasicInfo.Email"></span>
+								<input asp-for="BasicInfo.Email" />
+							}
+							
 						</div>
 						<div id="form-phone" class="input-group">
 							<label asp-for=BasicInfo.Phone></label>

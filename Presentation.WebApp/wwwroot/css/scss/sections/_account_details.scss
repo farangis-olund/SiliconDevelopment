@@ -1,10 +1,21 @@
 ﻿#account-details {
     display: grid;
-    grid-template-columns: 2fr 5fr;
-    gap: 150px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    @include lg {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+        gap: 150px;
+    }
 
     aside {
-        border-right: 1px solid $gray-300;
+        border: none;
+
+        @include lg {
+            border-right: 1px solid $gray-300;
+        }
+
         padding-right: 20px;
 
         .profile-info {
@@ -22,8 +33,25 @@
         }
 
         nav {
-            margin-top: 50px;
+            margin-top: 20px;
             text-align: left;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-content: center;
+
+            @include lg {
+                display: block;
+                margin-top: 50px;
+            }
+
+            span {
+                display: none;
+
+                @include lg {
+                    display: block;
+                }
+            }
 
             a {
                 margin: 10px 0;
@@ -38,24 +66,45 @@
         }
     }
 
+
     .details {
-        margin-top: 50px;
+        margin-top: 0;
+
+        @include lg {
+            margin-top: 50px;
+        }
+
         width: 100%;
+
 
         .basic-info {
 
             form {
                 padding: 1rem;
 
+                h2 {
+                    text-align: center;
+
+                    @include lg {
+                        text-align: left;
+                    }
+                }
                 h5 {
                     color: $theme;
                 }
 
                 .content {
                     display: grid;
-                    gap: 1rem 2rem;
-                    grid-template-columns: 1fr 1fr;
-                    grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+                    gap: 1rem 0;
+                    grid-template-columns: 1fr;
+                    grid-template-areas: "firstname" " lastname" "email" "phone" "bio" "buttons";
+
+                    @include lg {
+                        gap: 1rem 2rem;
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+                    }
+
 
                     #form-firstname {
                         grid-area: firstname;
@@ -86,7 +135,14 @@
                         grid-area: buttons;
                         margin: 20px 0;
                         display: flex;
+                        justify-content: center;
+                        align-items: center;
                         gap: 20px;
+
+                        @include lg {
+                            justify-content: left;
+                            align-items: left;
+                        }
                     }
                 }
             }
@@ -134,6 +190,13 @@
                         margin: 20px 0;
                         display: flex;
                         gap: 20px;
+                        justify-content: center;
+                        align-items: center;
+
+                        @include lg {
+                            justify-content: left;
+                            align-items: left;
+                        }
                     }
                 }
             }

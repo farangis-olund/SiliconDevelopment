@@ -622,6 +622,9 @@ header .container .account-buttons {
   z-index: 4;
   display: none;
 }
+header .container .account-buttons .avatar {
+  width: 45px;
+}
 header .container .account-buttons.show-buttons {
   display: flex;
   justify-content: center;
@@ -1487,12 +1490,24 @@ footer .container .copyright span {
 
 #account-details {
   display: grid;
-  grid-template-columns: 2fr 5fr;
-  gap: 150px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 992px) {
+  #account-details {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    gap: 150px;
+  }
 }
 #account-details aside {
-  border-right: 1px solid #E2E5F1;
+  border: none;
   padding-right: 20px;
+}
+@media (min-width: 992px) {
+  #account-details aside {
+    border-right: 1px solid #E2E5F1;
+  }
 }
 #account-details aside .profile-info {
   margin: 20px;
@@ -1510,8 +1525,26 @@ footer .container .copyright span {
   font-size: 16px !important;
 }
 #account-details aside nav {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: left;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-content: center;
+}
+@media (min-width: 992px) {
+  #account-details aside nav {
+    display: block;
+    margin-top: 50px;
+  }
+}
+#account-details aside nav span {
+  display: none;
+}
+@media (min-width: 992px) {
+  #account-details aside nav span {
+    display: block;
+  }
 }
 #account-details aside nav a {
   margin: 10px 0;
@@ -1523,20 +1556,40 @@ footer .container .copyright span {
   justify-content: flex-start;
 }
 #account-details .details {
-  margin-top: 50px;
+  margin-top: 0;
   width: 100%;
+}
+@media (min-width: 992px) {
+  #account-details .details {
+    margin-top: 50px;
+  }
 }
 #account-details .details .basic-info form {
   padding: 1rem;
+}
+#account-details .details .basic-info form h2 {
+  text-align: center;
+}
+@media (min-width: 992px) {
+  #account-details .details .basic-info form h2 {
+    text-align: left;
+  }
 }
 #account-details .details .basic-info form h5 {
   color: #6366F1;
 }
 #account-details .details .basic-info form .content {
   display: grid;
-  gap: 1rem 2rem;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+  gap: 1rem 0;
+  grid-template-columns: 1fr;
+  grid-template-areas: "firstname" " lastname" "email" "phone" "bio" "buttons";
+}
+@media (min-width: 992px) {
+  #account-details .details .basic-info form .content {
+    gap: 1rem 2rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+  }
 }
 #account-details .details .basic-info form .content #form-firstname {
   grid-area: firstname;
@@ -1561,7 +1614,15 @@ footer .container .copyright span {
   grid-area: buttons;
   margin: 20px 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
+}
+@media (min-width: 992px) {
+  #account-details .details .basic-info form .content .form-buttons {
+    justify-content: left;
+    align-items: left;
+  }
 }
 #account-details .details .address-info {
   margin-top: 30px;
@@ -1599,6 +1660,14 @@ footer .container .copyright span {
   margin: 20px 0;
   display: flex;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  #account-details .details .address-info form .content .form-buttons {
+    justify-content: left;
+    align-items: left;
+  }
 }
 
 .error-404 {

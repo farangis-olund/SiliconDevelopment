@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Entities;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -134,6 +133,7 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 				LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
 				Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
 				UserName = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+				IsExternalAccount = true
 			};
 
 			var user = await _userManager.FindByEmailAsync(userEntity.Email);
@@ -153,6 +153,8 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 					user.FirstName = userEntity.FirstName; 
 					user.LastName = userEntity.LastName;
 					user.Email = userEntity.Email;
+					user.UserName = userEntity.Email;
+					user.IsExternalAccount = true;
 
 					await _userManager.UpdateAsync(user);
 				}
