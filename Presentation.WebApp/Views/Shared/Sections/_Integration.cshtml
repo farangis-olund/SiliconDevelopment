@@ -1,0 +1,26 @@
+﻿@inject IntegrationService _integrationService
+@{
+    var result = await _integrationService.GetAllIntegrationsAsync();
+    List<IntegrationEntity> contentList = (List<IntegrationEntity>)result.ContentResult!;
+    IntegrationEntity content = contentList.First();
+}
+
+@if (content != null)
+{
+    <section class="integrate-tools">
+        <div class="container">
+            <h1>@content.Title</h1>
+            <p id="sub-title">@content.Ingress</p>
+            <div class="content">
+                @foreach (var tool in content.IntegrationTools)
+                {
+                    <div class="tool">
+                        <img src="images/integrate-icon/@tool.Image" alt="@tool.Image">
+                        <p>@tool.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+}

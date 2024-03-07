@@ -1,0 +1,48 @@
+﻿@inject SubscriptionSectionService _subscriptionService
+@{
+    var result = await _subscriptionService.GetAllSubscriptionSectionsAsync();
+    List<SubscriptionSectionEntity> contentList = (List<SubscriptionSectionEntity>)result.ContentResult!;
+    SubscriptionSectionEntity content = contentList.First();
+}
+@if (content != null)
+{
+     <section class="subscribe">
+            <div class="container">
+                <div class="title">
+                    <h1>@content.Title</h1>
+                    <img class="decorArrows" src="images/decorArrows.svg" alt="decor">
+                </div>
+                
+                <div class="checkbox-container">
+                    <h5>@content.Description</h5>
+                    <div class="checkboxes">
+
+                        @foreach (var checkbox in content.CheckBoxs.Split(";"))
+                        {
+                            var words = checkbox.Trim().Split(' ');
+                            var formattedString = string.Join("", words.Select(word => char.ToUpper(word[0]) + word.Substring(1)));
+
+                            <div class="checkbox">
+                                <input type="checkbox" id="formattedString">
+                                <label for="formattedString">@checkbox.Trim()</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="inputbox-container">
+                     <div class="inputgroup">
+                        <input type="text" placeholder="Your Email">
+                        <i class="fa-sharp fa-light fa-envelope"></i>
+                    </div>
+                                                         
+                    <div class="button">
+                        <a class="btn-theme-s" href="#">Subscribe *</a>
+                    </div>
+                </div>
+                <p><span class="asterisk">*</span> Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</p>
+
+            </div>
+
+        </section>
+}

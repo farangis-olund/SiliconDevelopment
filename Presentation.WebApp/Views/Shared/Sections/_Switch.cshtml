@@ -1,0 +1,29 @@
+﻿@inject SwitchService _switchService
+@{
+    var result = await _switchService.GetAllSwitchsAsync();
+    List<SwitchEntity> contentList = (List<SwitchEntity>)result.ContentResult!;
+    SwitchEntity content = contentList.First();
+}
+@if (content !=null)
+{
+    <section class="switch-section">
+        <div class="dark-side image-wrapper">
+            <h1>@content.DarkTitle</h1>
+            <div class="img-slide">
+                <img src="images/mockup/@content.DarkImage" alt="@content.DarkImage">
+            </div>
+            <div class="overlay"></div>
+        </div>
+
+        <div class="btn-slider" id="slider"></div>
+
+        <div class="light-side image-wrapper">
+            <h1>@content.LightTitle</h1>
+            <div class="img-slide">
+                <img src="images/mockup/@content.LightImage" alt="@content.LightImage">
+            </div>
+        </div>
+
+        <div class="vertical-line"></div>
+    </section>
+}

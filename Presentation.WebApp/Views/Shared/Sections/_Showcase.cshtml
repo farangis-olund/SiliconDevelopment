@@ -1,0 +1,30 @@
+﻿@inject ShowcaseService _showcaseService
+@{
+    var result = await _showcaseService.GetAllShowcasesAsync();
+    List<ShowcaseEntity> contentList = (List<ShowcaseEntity>)result.ContentResult!;
+    ShowcaseEntity content = contentList.First();
+}
+@if (content != null)
+{
+    var segments = content.ButtonLink.Split(';');
+    var controller = segments[0].Trim();
+    var action = segments[1].Trim();
+
+    <div class="showcase">
+        <div class="container">
+            <div class="content">
+                <h1>@content.Title</h1>
+                <p>@content.Ingress</p>
+                <a class="btn-theme-s" asp-controller="@controller" asp-action="@action">@content.ButtonText</a>
+                <h6>@content.SubTitle</h6>
+                <div class="brands">
+                    @foreach (var brand in content.Brands.Split(';'))
+                    {
+                        <img src="images/brands/@brand.Trim()" alt="@brand.Trim()">
+                    }
+                </div>
+            </div>
+        </div>
+        <img class="background-image" src="images/@content.Image" alt="@content.Image">
+    </div>
+}

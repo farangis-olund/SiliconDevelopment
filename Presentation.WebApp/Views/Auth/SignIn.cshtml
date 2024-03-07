@@ -1,0 +1,46 @@
+﻿@model SignInViewModel
+
+<section class="signin">
+	<div class="container">
+		<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
+		
+		<form method="post" asp-controller="Auth" asp-action="SignIn" asp-route-ReturnUrl ="@ViewData["ReturnUrl"]" novalidate>
+			@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]!.ToString()))
+			{
+				<div class="alert alert-danger">
+					@ViewData["ErrorMessage"]
+				</div>
+			}
+			<h1>Welcome Back</h1>
+			<p>Don't have an account yet? <a asp-controller="Auth" asp-action="SignUp">Sign up here</a></p>
+			<div class="content">
+				<div id="form-email" class="input-group">
+					<label asp-for=Form.Email></label>
+					<input asp-for="Form.Email" />
+				</div>
+				<div id="form-password" class="input-group">
+					<label asp-for=Form.Password></label>
+					<input asp-for="Form.Password" />
+				</div>
+				<div id="form-remember" class="checkbox">
+					<div class="checkbox-group">
+						<input asp-for="Form.RememberMe" />
+						<label asp-for="Form.RememberMe"></label>
+					</div>
+				</div>
+				<button id="form-button" class="btn-theme-s" type="submit">@Model.Title</button>
+
+				<a id="form-forgot-password" asp-controller="Account" asp-action="Forgot">forgot your password?</a>
+				<hr>
+				<div class="external-signin">
+					<h6>Or sign in with your social account</h6>
+					<div class="providers">
+						<a class="btn-gray" asp-controller="Auth" asp-action="Google"><i class="fa-brands fa-google"></i>Google</a>
+						<a class="btn-gray" asp-controller="Auth" asp-action="Facebook"><i class="fa-brands fa-facebook-f"></i>Facebook</a>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

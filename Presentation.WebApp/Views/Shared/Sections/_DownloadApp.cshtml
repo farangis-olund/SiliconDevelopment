@@ -1,0 +1,43 @@
+﻿
+
+@inject DownloadAppService _downloadAppService
+@inject FormatReviews _formatReviews
+
+@{
+    var result =await _downloadAppService.GetAllDownloadAppsAsync();
+    List<DownloadAppEntity> contentList = (List<DownloadAppEntity>)result.ContentResult!;
+    DownloadAppEntity content = contentList.First();
+}
+@if (content !=null)
+{
+    <section id="downloadApp">
+        <div class="container">
+            <img class="image-wrapper" src="images/download/@content.Image" alt="@content.Image">
+
+            <div class="content">
+                <h1>@content.Title</h1>
+              
+                <div class="boxes">
+
+                    @foreach (var platform in content.Platforms)
+                    {
+                        <div class="box">
+                            <div class="text">
+                                <p class="title">@platform.Name.Split(";")[0].Trim()</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <h5>@platform.Name.Split(";")[1].Trim()</h5>
+                                <p class="rate">rating @platform.Ratings,  @_formatReviews.Reviews(platform.Reviews) + reviews</p>
+                            </div>
+                            <a href="#"><img src="images/download/@platform.Platform" alt="appstore"></a>
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

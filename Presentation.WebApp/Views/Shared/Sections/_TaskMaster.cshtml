@@ -1,0 +1,26 @@
+﻿@inject TaskMasterService _taskMasterService
+@{
+    var result = await _taskMasterService.GetAllTaskMastersAsync();
+    List<TaskMasterEntity> contentList = (List<TaskMasterEntity>)result.ContentResult!;
+    TaskMasterEntity content = contentList.First();
+}
+@if (content != null)
+{
+    <section class="taskmaster">
+        <div class="container">
+            <img src="images/@content.ImageUrl" alt="@content.ImageUrl">
+            <div class="content">
+                <h2>@content.Title</h2>
+                <ul class="checklist">
+                    @foreach (var checklist in content.CheckListItems.Split(";")) {
+                        <li><i class="fa-light fa-circle-check"></i>@checklist.Trim()</li>
+                    }
+                </ul>
+                <div class="button">
+                    <a class="btn-theme-s" href="#">Learn more<i class="fa-light fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
