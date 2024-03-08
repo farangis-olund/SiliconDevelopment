@@ -1,4 +1,13 @@
 ﻿@model CoursesViewModel
+@{
+	// Pagination settings
+	int itemsPerPage = 9; // Number of items to display per page
+	int totalItems = 40; // Model.CourseModels.Count; // Total number of items
+	int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage); // Total number of pages
+	int currentPage = 1;//Request.Query.ContainsKey("page") ? Convert.ToInt32(Request.Query["page"]) : 1; 
+	int startIndex = (currentPage - 1) * itemsPerPage; // Start index of items for the current page
+	int endIndex = Math.Min(startIndex + itemsPerPage - 1, totalItems - 1); // End index of items for the current page
+}
 
 <section id="courses">
     <div class="container">
@@ -17,8 +26,268 @@
                 </div>
             </div>
         </div>
-        <div class="content">
-            
+		<div class="content-contaier">
+            @* <partial name="~/Views/Shared/Sections/_CoursePartial.cshtml" /> *@
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/fullstack-web-developer.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+					<div class="badge">Best Seller</div>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/html-css-javascript.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/front-end.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/ios.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/data.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/creative.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/blender.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/ultimate.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/learn.svg" />
+					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
+				</div>
+
+				<div class="info">
+					<h4>Fullstack Web Developer Course from Scratch</h4>
+					<p>By Robert Fox</p>
+					<div class="price">
+						<p>$12.50</p>
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(4.2K)</p>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
+
+		<nav aria-label="Page navigation">
+			<ul class="pagination">
+
+				<!-- Left arrow icon -->
+				<li class="page-item @(currentPage == 1 ? "disabled" : "")">
+					<a class="page-link" href="?page=@(currentPage - 1)" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				
+				@for (int i = 1; i <= 3; i++)
+				{
+					<li class="page-item @(i == 1 ? "active" : "")">
+						<a class="page-link" href="?page=@i">@i</a>
+					</li>
+				}
+
+				<!-- Right arrow icon -->
+				<li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+					<a class="page-link" href="?page=@(currentPage + 1)" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="work-with-us">
+			<div class="banner-content">
+				<h5>Ready to get started?</h5>
+				<h1>Take Your <span>Skills</span> to the Next Level</h1>
+				<button class="btn-theme-s" asp-controller="Vacancy" asp-action="Index">Work with us</button>
+			</div>
+			<img src="~/images/courses/illustration.svg"/>
+		</div>
     </div>
 </section>

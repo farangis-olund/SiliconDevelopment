@@ -1,13 +1,26 @@
 ﻿#courses {
     .container {
+
         .heading {
-            padding-top: 30px;
-            display: flex;
-            justify-content: space-between;
+            padding-top: 20px;
+            display: block;
+
+            @include lg {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 30px;
+            }
 
             .tool-bar {
                 display: flex;
+                justify-content: center;
+                align-items: stretch;
                 gap: 15px;
+                padding-top: 20px;
+
+                @include lg {
+                    padding-top: 0;
+                }
             }
 
             h2 {
@@ -18,20 +31,231 @@
             .inputgroup {
                 input {
                     padding: 10px 10px 10px 15px;
-                    width: 300px;
+                    width: 350px;
+                    @include lg {
+                        width: 300px;
+                    }
                 }
 
                 i {
                     right: 15px;
                     color: $gray-700;
-                    
                 }
             }
 
-
             select {
                 padding: 15px 25px 15px 15px;
-                width: 250px;
+                width: 300px;
+                @include lg {
+                    width: 260px;
+                }
+            }
+        }
+
+        .content-contaier {
+            padding-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem 2rem;
+
+            @include lg {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            @include xl {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .course-item {
+                @include theme-secondary-shadow;
+                border-radius: 8px;
+                border: 1px solid $gray-100;
+
+                .image-container {
+                    position: relative;
+
+                    img {
+                        border: none;
+                        border-radius: 8px;
+                        width: 100%;
+                    }
+
+                    .btn-sell {
+                        height: 40px;
+                        width: 40px;
+                        background-color: $white;
+                        border: none;
+                        position: absolute;
+                        border-radius: 50%;
+                        top: 15px;
+                        right: 15px;
+                        z-index: 2;
+
+                        i {
+                            font-size: 15px;
+                           
+                        }
+
+                        &:hover {
+                            background-color: $theme;
+
+                            i {
+                                color: $white;
+                            }
+                        }
+                    }
+
+                    .badge {
+                        position: absolute;
+                        top: 15px;
+                        left: 13px;
+                        z-index: 2;
+                        background-color: $success;
+                        padding: 5px 12px;
+                        font-size: 15px;
+                        font-weight: 400;
+                        color: $white;
+                    }
+                }
+
+                .info {
+                    padding: 20px;
+
+                    .price {
+                        p {
+                            font-size: 22px;
+                            font-weight: 700;
+                            color: $theme;
+                        }
+                    }
+
+                    .duration-rating {
+                        display: flex;
+                        gap: 25px;
+
+                        .duration {
+                            i {
+                                padding-right: 7px;
+                            }
+                        }
+
+                        .rating {
+                            i {
+                                font-size: 20px;
+                            }
+
+                            display: flex;
+                            gap: 7px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            justify-content: center;
+            margin-top: 30px;
+            padding-bottom: 80px;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            display: inline-block;
+            padding: 5px 12px;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .page-link:hover {
+            background-color: $gray-100;
+        }
+
+        .page-item.disabled .page-link {
+            color: #ccc;
+            background-color: transparent;
+            pointer-events: none;
+        }
+
+        .page-item.disabled .page-link:hover {
+        }
+
+        .page-item span {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            font-size: 1.5em;
+            line-height: 1em;
+            text-align: center;
+        }
+
+        .page-item:first-child span {
+            margin-right: 5px;
+        }
+
+        .page-item:last-child span {
+            margin-left: 5px;
+        }
+
+        .page-item.active .page-link {
+            background-color: $theme;
+            color: #fff;
+        }
+
+        .work-with-us {
+            border-radius: 6px;
+            padding-top: 40px;
+            background-color: $gray-100;
+            display: block;
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+            padding: 20px;
+
+            @include lg {
+                display: flex;
+                gap: 100px;
+                padding: 80px 60px 80px 100px;
+                text-align: left;
+            }
+
+            .banner-content {
+                display: block;
+                justify-content: center;
+                align-content: center;
+                padding: 20px;
+
+                @include lg {
+                    justify-content: left;
+                    align-content: left;
+                    padding-top: 50px;
+                    padding-left: 40px;
+                }
+
+                .btn-theme-s {
+                    display: inline-block;
+                }
+
+                h5 {
+                    font-weight: 400;
+                    color: $gray-700;
+                }
+
+                h1 {
+                    padding-bottom: 20px;
+                }
+
+                span {
+                    color: $theme;
+                }
             }
         }
     }
