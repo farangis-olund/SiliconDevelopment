@@ -12,14 +12,17 @@ namespace Presentation.WebApp.Controllers;
 public class AccountController : Controller
 {
     private readonly UserManager<UserEntity> _userManager;
-    private readonly AddressService _addressService;
+	private readonly SignInManager<UserEntity> _signInManager;
+	private readonly AddressService _addressService;
 
-    public AccountController(UserManager<UserEntity> userManager, AddressService addressService)
+
+    public AccountController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, AddressService addressService)
     {
         _userManager = userManager;
+		_signInManager = signInManager;
         _addressService = addressService;
     }
-    #region HttpGet Index
+    #region Index
     [HttpGet]
     [Route("/account")]
     public async Task<IActionResult> Index()
@@ -32,9 +35,7 @@ public class AccountController : Controller
 
 		return View(viewModel);
     }
-	#endregion
-
-	#region HttpPost Index
+	
 	[HttpPost]
 	[Route("/account")]
 	public async Task<IActionResult> Index(AccountDetailViewModel viewModel)
@@ -115,6 +116,65 @@ public class AccountController : Controller
 	}
 	#endregion
 
+	#region Security
+	[HttpGet]
+	[Route("/account/security")]
+	public async Task<IActionResult> AccountSecurity()
+	{
+		var viewModel = new AccountDetailViewModel();
+		var accountDetailsTask = PopulateAccountDetailsAsync();
+		viewModel.ProfileInfo = (await accountDetailsTask).ProfileInfo;
+		return View(viewModel);
+	}
+
+	[HttpPost]
+	[Route("/account/security")]
+	public async Task<IActionResult> AccountSecurity(AccountDetailViewModel viewModel)
+	{
+		var user = await _userManager.GetUserAsync(User);
+		if (user != null)
+		{
+			
+				if (viewModel.SecurityInfo != null)
+				{
+
+					if (viewModel.SecurityInfo.CurrentPassword != null && viewModel.SecurityInfo.Password != null && (viewModel.SecurityInfo.ConfirmPassword != null && viewModel.SecurityInfo.Password  == viewModel.SecurityInfo.ConfirmPassword))
+					{
+						var result = await _userManager.ChangePasswordAsync(user, viewModel.SecurityInfo.CurrentPassword, viewModel.SecurityInfo.Password);
+
+						if (result.Succeeded)
+							ViewData["ErrorMessage"] = " success|Password is saved successfully!";
+						else
+							ViewData["ErrorMessage"] = " danger|Password saving process failed!";
+					}
+					else
+					{
+						ViewData["StatusMessage"] = "danger|Validation is failed, you should enter correct password!";
+					}
+
+					if (viewModel.SecurityInfo.DeleteAccount == true)
+					{
+						var result = await _userManager.DeleteAsync(user);
+						if (result.Succeeded)
+							ViewData["SatusMessage"] = "success|User is successfully deleted!";
+						else
+							ViewData["StatusMessage"] = "danger|Deleting process is failed!";
+						return RedirectToAction("SignIn", "Auth");
+					}
+
+					await _signInManager.RefreshSignInAsync(user);
+
+				}
+			
+		}
+
+		ViewData["Title"] = viewModel.Title;
+
+		var accountDetailsTask = PopulateAccountDetailsAsync();
+		viewModel.ProfileInfo = (await accountDetailsTask).ProfileInfo;
+		return View(viewModel);
+	}
+	#endregion
 	private async Task<AccountDetailViewModel> PopulateAccountDetailsAsync()
 	{
 		var user = await _userManager.GetUserAsync(User);
@@ -162,4 +222,5 @@ public class AccountController : Controller
 		return accountDetails;
 	}
 
+	
 }

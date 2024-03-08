@@ -533,6 +533,70 @@ form span.field-validation-error {
   color: #EF4444;
 }
 
+aside {
+  border: none;
+  padding-right: 20px;
+}
+aside img {
+  width: 100px;
+}
+@media (min-width: 992px) {
+  aside {
+    border-right: 1px solid #E2E5F1;
+  }
+}
+aside .profile-info {
+  margin: 20px;
+  text-align: center;
+}
+aside .profile-info h5 {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+aside .profile-info p {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px !important;
+}
+aside nav {
+  margin-top: 20px;
+  text-align: left !important;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-content: center;
+}
+@media (min-width: 992px) {
+  aside nav {
+    display: block;
+    margin-top: 50px;
+    justify-content: left;
+  }
+}
+aside nav span {
+  display: none;
+}
+@media (min-width: 992px) {
+  aside nav span {
+    display: block;
+  }
+}
+aside nav a {
+  margin: 10px 0;
+  text-align: left;
+  justify-content: flex-start;
+}
+aside nav .btn-transparent {
+  text-align: left;
+  justify-content: flex-start;
+}
+aside nav .btn-theme-s {
+  text-align: left;
+  justify-content: flex-start;
+}
+
 header {
   padding: 15px 0;
 }
@@ -621,6 +685,9 @@ header .container .account-buttons {
   gap: 15px;
   z-index: 4;
   display: none;
+}
+header .container .account-buttons i {
+  font-size: 20px;
 }
 header .container .account-buttons .avatar {
   width: 45px;
@@ -1500,61 +1567,6 @@ footer .container .copyright span {
     gap: 150px;
   }
 }
-#account-details aside {
-  border: none;
-  padding-right: 20px;
-}
-@media (min-width: 992px) {
-  #account-details aside {
-    border-right: 1px solid #E2E5F1;
-  }
-}
-#account-details aside .profile-info {
-  margin: 20px;
-  text-align: center;
-}
-#account-details aside .profile-info h5 {
-  margin-top: 15px;
-  margin-bottom: 0;
-}
-#account-details aside .profile-info p {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-size: 16px !important;
-}
-#account-details aside nav {
-  margin-top: 20px;
-  text-align: left;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-content: center;
-}
-@media (min-width: 992px) {
-  #account-details aside nav {
-    display: block;
-    margin-top: 50px;
-  }
-}
-#account-details aside nav span {
-  display: none;
-}
-@media (min-width: 992px) {
-  #account-details aside nav span {
-    display: block;
-  }
-}
-#account-details aside nav a {
-  margin: 10px 0;
-  text-align: left;
-  justify-content: flex-start;
-}
-#account-details aside nav .btn-theme-s {
-  text-align: left;
-  justify-content: flex-start;
-}
 #account-details .details {
   margin-top: 0;
   width: 100%;
@@ -1665,6 +1677,110 @@ footer .container .copyright span {
 }
 @media (min-width: 992px) {
   #account-details .details .address-info form .content .form-buttons {
+    justify-content: left;
+    align-items: left;
+  }
+}
+
+#account-security {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 992px) {
+  #account-security {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    gap: 150px;
+  }
+}
+#account-security .details {
+  margin-top: 0;
+  width: 100%;
+}
+@media (min-width: 992px) {
+  #account-security .details {
+    margin-top: 50px;
+  }
+}
+#account-security .details .password-info form {
+  padding: 1rem;
+}
+#account-security .details .password-info form h2 {
+  text-align: center;
+}
+@media (min-width: 992px) {
+  #account-security .details .password-info form h2 {
+    text-align: left;
+  }
+}
+#account-security .details .password-info form h5 {
+  color: #6366F1;
+}
+#account-security .details .password-info form .content {
+  display: grid;
+  gap: 1rem 0;
+  grid-template-columns: 1fr;
+  grid-template-areas: "current-password" " new-password" "confirm-password" "buttons";
+}
+@media (min-width: 992px) {
+  #account-security .details .password-info form .content {
+    gap: 1rem 2rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "current-password current-password" "new-password confirm-password" "buttons buttons";
+  }
+}
+#account-security .details .password-info form .content #current-password {
+  grid-area: current-password;
+}
+#account-security .details .password-info form .content #new-password {
+  grid-area: new-password;
+}
+#account-security .details .password-info form .content #confirm-password {
+  grid-area: confirm-password;
+}
+#account-security .details .password-info form .content .form-buttons {
+  grid-area: buttons;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+@media (min-width: 992px) {
+  #account-security .details .password-info form .content .form-buttons {
+    justify-content: left;
+    align-items: left;
+  }
+}
+#account-security .details .delete-account {
+  margin-top: 30px;
+}
+#account-security .details .delete-account form {
+  padding: 1rem;
+}
+#account-security .details .delete-account form h5 {
+  color: #6366F1;
+}
+#account-security .details .delete-account form .content {
+  display: grid;
+  row-gap: 1rem;
+  grid-template-columns: 1fr;
+}
+#account-security .details .delete-account form .content .form-button {
+  padding-top: 20px;
+  display: flex;
+}
+#account-security .details .delete-account form .content .form-button .btn-gray {
+  background-color: #EF4444;
+  color: #FFFFFF;
+}
+#account-security .details .delete-account form .content .form-button .btn-gray:hover {
+  background: #660000;
+  color: #FFFFFF;
+}
+@media (min-width: 992px) {
+  #account-security .details .delete-account form .content .form-button {
     justify-content: left;
     align-items: left;
   }

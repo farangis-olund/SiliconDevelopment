@@ -38,8 +38,14 @@
             @if (_signInManager.IsSignedIn(User))
             {                
                 var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
-               
-                <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/@user!.ProfileImgUrl" /></a>
+                if(user!.ProfileImgUrl == null)
+                {
+                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/avatar.svg" /></a>
+                }else
+                {
+                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/@user!.ProfileImgUrl" /></a>
+                }
+                
             } else
             {
                 <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><i class="fa-regular fa-right-to-bracket"></i><span>Sign In</span></a>

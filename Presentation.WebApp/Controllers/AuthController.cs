@@ -20,20 +20,23 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 	[HttpGet]
 	public IActionResult SignIn(string returnUrl)
     {
+		var viewModel = new SignInViewModel();
 		if (_signInManager.IsSignedIn(User))
 			return RedirectToAction("Index", "Account");
 
 		ViewData["Title"] = "Sign in";
-		ViewData["ErrorMessage"] = "";
-		ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
-		var viewModel = new SignInViewModel();
+		TempData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
 		return View(viewModel);
 	}
 	
 	[Route("/signin")]
 	[HttpPost]
-	public async Task<IActionResult> SignIn(SignInViewModel model, string returnUrl)
+	public async Task<IActionResult> SignIn(SignInViewModel model)
     {
+#nullable enable
+		string? returnUrl = TempData["ReturnUrl"]?.ToString();
+
+
 		if (ModelState.IsValid)
 		{
 			var result = await _signInManager.PasswordSignInAsync(model.Form.Email, model.Form.Password, model.Form.RememberMe, false); 
@@ -44,12 +47,10 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 					return Redirect(returnUrl);
 				return RedirectToAction("Index", "Account");
 			};
-
-			
-				
 		}
 		ModelState.AddModelError("Inccorect", "Incorrect email or password");
-		ViewData["ErrorMessage"] = "Incorrect email or password";
+		ViewData["StatusMessage"] = "danger|Incorrect email or password";
+		
 		return View(model);
 
 	}
@@ -64,7 +65,7 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 			return RedirectToAction("Index", "Account");
 
 		ViewData["Title"] = "Sign Up";
-		ViewData["ErrorMessage"] = "";
+		ViewData["StatusMessage"] = null;
 		var viewModel = new SignUpViewModel();
         return View(viewModel);
     }
@@ -79,7 +80,7 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 			if (exists)
 			{
 				ModelState.AddModelError("AlreadyExists", "User with the same email already exists");
-				ViewData["ErrorMessage"] = "User with the same email already exists";
+				ViewData["StatusMessage"] = "danger|User with the same email already exists";
 				return View(model);
 			}
 
@@ -96,7 +97,8 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 			if ( result.Succeeded)
 			return RedirectToAction("SignIn", "Auth");
 		}
-		ViewData["ErrorMessage"] = "The required fields must be filled.";
+		ViewData["StatusMessage"] = "danger|The required fields must be filled.";
+		
 		return View(model);
 	}
 	#endregion

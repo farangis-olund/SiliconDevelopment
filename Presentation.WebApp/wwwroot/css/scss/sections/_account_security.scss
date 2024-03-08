@@ -1,4 +1,4 @@
-﻿#account-details {
+﻿#account-security {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
@@ -8,7 +8,7 @@
         grid-template-columns: 2fr 5fr;
         gap: 150px;
     }
-    
+
     .details {
         margin-top: 0;
 
@@ -19,7 +19,7 @@
         width: 100%;
 
 
-        .basic-info {
+        .password-info {
 
             form {
                 padding: 1rem;
@@ -31,6 +31,7 @@
                         text-align: left;
                     }
                 }
+
                 h5 {
                     color: $theme;
                 }
@@ -39,38 +40,25 @@
                     display: grid;
                     gap: 1rem 0;
                     grid-template-columns: 1fr;
-                    grid-template-areas: "firstname" " lastname" "email" "phone" "bio" "buttons";
+                    grid-template-areas: "current-password" " new-password" "confirm-password" "buttons";
 
                     @include lg {
                         gap: 1rem 2rem;
                         grid-template-columns: 1fr 1fr;
-                        grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+                        grid-template-areas: "current-password current-password" "new-password confirm-password" "buttons buttons";
                     }
 
 
-                    #form-firstname {
-                        grid-area: firstname;
+                    #current-password {
+                        grid-area: current-password;
                     }
 
-                    #form-lastname {
-                        grid-area: lastname;
+                    #new-password {
+                        grid-area: new-password;
                     }
 
-                    #form-email {
-                        grid-area: email;
-                    }
-
-                    #form-phone {
-                        grid-area: phone;
-                    }
-
-                    #form-bio {
-                        grid-area: bio;
-
-                        span {
-                            color: $gray-500;
-                            font-weight: 400;
-                        }
+                    #confirm-password {
+                        grid-area: confirm-password;
                     }
 
                     .form-buttons {
@@ -90,7 +78,7 @@
             }
         }
 
-        .address-info {
+        .delete-account {
             margin-top: 30px;
 
             form {
@@ -102,38 +90,22 @@
 
                 .content {
                     display: grid;
-                    gap: 1rem 2rem;
-                    grid-template-columns: 1fr 1fr;
-                    grid-template-areas: "addressline_1 addressline_1" "addressline_2 addressline_2" "postalcode city" "buttons buttons";
+                    row-gap: 1rem;
+                    grid-template-columns: 1fr;
 
-                    #form-addressline_1 {
-                        grid-area: addressline_1;
-                    }
-
-                    #form-addressline_2 {
-                        grid-area: addressline_2;
-
-                        span {
-                            color: $gray-500;
-                            font-weight: 400;
-                        }
-                    }
-
-                    #form-postalcode {
-                        grid-area: postalcode;
-                    }
-
-                    #form-city {
-                        grid-area: city;
-                    }
-
-                    .form-buttons {
-                        grid-area: buttons;
-                        margin: 20px 0;
+                    .form-button {
+                        padding-top: 20px;
                         display: flex;
-                        gap: 20px;
-                        justify-content: center;
-                        align-items: center;
+                     
+                        .btn-gray {
+                            background-color: $danger;
+                            color: $white;
+
+                            &:hover {
+                                background: #660000;
+                                color: $white;
+                            }
+                        }
 
                         @include lg {
                             justify-content: left;

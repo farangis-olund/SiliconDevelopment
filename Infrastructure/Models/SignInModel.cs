@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Models;

@@ -8,4 +8,5 @@ public class AccountDetailViewModel
 	public AccountProfileModel ProfileInfo { get; set; } = null!;
 	public AccountDetailBasicInfoModel BasicInfo { get; set; } = null!;
 	public AccountDetailAddressInfoModel AddressInfo { get; set; } = null!;
+	public AccountSecurityModel SecurityInfo { get; set; } = null!;
 }

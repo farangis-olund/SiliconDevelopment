@@ -1,0 +1,66 @@
+﻿aside {
+    border: none;
+
+    img {
+        width: 100px;
+    }
+
+    @include lg {
+        border-right: 1px solid $gray-300;
+    }
+
+    padding-right: 20px;
+
+    .profile-info {
+        margin: 20px;
+        text-align: center;
+
+        h5 {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        p {
+            @include text-m;
+        }
+    }
+
+    nav {
+        margin-top: 20px;
+        text-align: left !important;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+
+        @include lg {
+            display: block;
+            margin-top: 50px;
+            justify-content: left;
+        }
+
+        span {
+            display: none;
+
+            @include lg {
+                display: block;
+            }
+        }
+
+        a {
+            margin: 10px 0;
+            text-align: left;
+            justify-content: flex-start;
+        }
+
+        .btn-transparent {
+            text-align: left;
+            justify-content: flex-start;
+        }
+
+        .btn-theme-s {
+            text-align: left;
+            justify-content: flex-start;
+        }
+    }
+}

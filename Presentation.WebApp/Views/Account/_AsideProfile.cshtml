@@ -1,15 +1,29 @@
 ﻿@model AccountDetailViewModel
 <aside>
 	<div class="profile-info">
-		<img src="~/images/@Model.ProfileInfo.ProfileImgUrl" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+		@if(Model.ProfileInfo.ProfileImgUrl == null)
+		{
+			<img src="~/images/avatar.svg" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+		}
+		else
+		{
+			<img src="~/images/@Model.ProfileInfo.ProfileImgUrl" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+		}
 		<h5>@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")</h5>
 		<p>@Model.ProfileInfo.Email</p>
 	</div>
 
 	<nav>
-		<a class="btn-theme-s" asp-controller="Account" asp-action="Index"><i class="fa-regular fa-gear"></i> <span>Account Details</span></a>
-		<a class="btn-transparent" asp-controller="Account" asp-action="Security"><i class="fa-regular fa-lock"></i> <span>Security</span> </a>
-		<a class="btn-transparent" asp-controller="Account" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i> <span>Saved Courses</span></a>
+		<a class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "btn-theme-s" : "btn-transparent")" asp-controller="Account" asp-action="Index">
+			<i class="fa-regular fa-gear"></i> <span>Account Details</span>
+		</a>
+		<a class="@(ViewContext.RouteData.Values["action"]?.ToString() == "AccountSecurity" ? "btn-theme-s" : "btn-transparent")" asp-controller="Account" asp-action="AccountSecurity">
+			<i class="fa-regular fa-lock"></i> <span>Security</span>
+		</a>
+		<a class="@(ViewContext.RouteData.Values["action"]?.ToString() == "SavedCourses" ? "btn-theme-s" : "btn-transparent")" asp-controller="Account" asp-action="SavedCourses">
+			<i class="fa-regular fa-bookmark"></i> <span>Saved Courses</span>
+		</a>
 		<a class="btn-transparent" asp-controller="Auth" asp-action="SignOut"><i class="fa-regular fa-right-from-bracket"></i> <span>Sign Out</span></a>
 	</nav>
+
 </aside>
