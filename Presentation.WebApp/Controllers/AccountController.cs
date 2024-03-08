@@ -175,6 +175,19 @@ public class AccountController : Controller
 		return View(viewModel);
 	}
 	#endregion
+
+	#region Courses
+	[HttpGet]
+	[Route("/account/savedCourses")]
+	public async Task<IActionResult> SavedCourses()
+	{
+		var viewModel = new AccountDetailViewModel();
+		var accountDetailsTask = PopulateAccountDetailsAsync();
+		viewModel.ProfileInfo = (await accountDetailsTask).ProfileInfo;
+		return View(viewModel);
+	}
+	#endregion
+
 	private async Task<AccountDetailViewModel> PopulateAccountDetailsAsync()
 	{
 		var user = await _userManager.GetUserAsync(User);

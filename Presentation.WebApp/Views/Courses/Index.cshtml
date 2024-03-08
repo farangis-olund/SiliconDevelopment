@@ -1,0 +1,24 @@
+﻿@model CoursesViewModel
+
+<section id="courses">
+    <div class="container">
+        <div class="heading">
+            <h2 class="title">@Model.Title</h2> 
+            <div class="tool-bar">
+                <div class="inputgroup">
+                    <select asp-for="@Model.SelectedCategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                        <option value="">All categories</option>
+                    </select>
+                    <i class="fa-regular fa-chevron-down"></i>
+                </div>
+                <div class="inputgroup">
+                    <input type="text" id="searchInput" asp-for="@Model.SearchQuery" placeholder="Search Courses...">
+                    <i class="fa-regular fa-magnifying-glass"></i>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            
+        </div>
+    </div>
+</section>

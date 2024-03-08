@@ -1,0 +1,38 @@
+﻿#courses {
+    .container {
+        .heading {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+
+            .tool-bar {
+                display: flex;
+                gap: 15px;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+
+            .inputgroup {
+                input {
+                    padding: 10px 10px 10px 15px;
+                    width: 300px;
+                }
+
+                i {
+                    right: 15px;
+                    color: $gray-700;
+                    
+                }
+            }
+
+
+            select {
+                padding: 15px 25px 15px 15px;
+                width: 250px;
+            }
+        }
+    }
+}

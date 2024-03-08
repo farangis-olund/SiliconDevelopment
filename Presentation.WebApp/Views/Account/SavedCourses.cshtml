@@ -1,0 +1,47 @@
+﻿@model AccountDetailViewModel
+@{
+	ViewData["Title"] = $"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}'s profile";
+}
+
+<div class="container">
+	<section id="saved-courses">
+
+		<partial name="_AsideProfile.cshtml" />
+
+		<div class="details">
+			<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
+
+			<section class="courses-info">
+				<form method="post" asp-controller="Account" asp-action="AccountSecurity">
+					<h2>Saved items</h2>
+					<h5>Password</h5>
+
+					<div class="content">
+						<div id="current-password" class="input-group">
+							<label asp-for=SecurityInfo.CurrentPassword></label>
+							<span asp-validation-for="SecurityInfo.CurrentPassword"></span>
+							<input asp-for="SecurityInfo.CurrentPassword" />
+						</div>
+						<div id="new-password" class="input-group">
+							<label asp-for=SecurityInfo.Password></label>
+							<span asp-validation-for="SecurityInfo.Password"></span>
+							<input asp-for="SecurityInfo.Password" />
+						</div>
+						<div id="confirm-password" class="input-group">
+							<label asp-for="SecurityInfo.ConfirmPassword"></label>
+							<span asp-validation-for="SecurityInfo.ConfirmPassword"></span>
+							<input asp-for="SecurityInfo.ConfirmPassword" />
+						</div>
+
+						<div class="form-buttons">
+							<button class="btn-gray" type="reset">Cancel</button>
+							<button class="btn-theme" type="submit">Save password</button>
+						</div>
+					</div>
+				</form>
+
+			</section>
+			
+		</div>
+	</section>
+</div>
