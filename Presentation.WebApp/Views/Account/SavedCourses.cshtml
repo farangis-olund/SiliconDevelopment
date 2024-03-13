@@ -2,46 +2,96 @@
 @{
 	ViewData["Title"] = $"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}'s profile";
 }
-
 <div class="container">
 	<section id="saved-courses">
-
+	
 		<partial name="_AsideProfile.cshtml" />
-
+		
 		<div class="details">
 			<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
+			<div class="title-bar">
+				<h2>Saved items</h2>
+				<button class="btn-gray" asp-controller="Courses" asp-action="Delete"><i class="fa-sharp fa-regular fa-trash"></i> Delete all</button>
+			</div>
 
-			<section class="courses-info">
-				<form method="post" asp-controller="Account" asp-action="AccountSecurity">
-					<h2>Saved items</h2>
-					<h5>Password</h5>
+			<section class="content-contaier">
+				<div class="course-item">
+					<div class="image-container">
+						<img src="~/images/courses/fullstack-web-developer.svg" />
+						<button class="btn-sell" type="submit"><i class="fa-sharp fa-solid fa-bookmark"></i></button>
+					</div>
 
-					<div class="content">
-						<div id="current-password" class="input-group">
-							<label asp-for=SecurityInfo.CurrentPassword></label>
-							<span asp-validation-for="SecurityInfo.CurrentPassword"></span>
-							<input asp-for="SecurityInfo.CurrentPassword" />
-						</div>
-						<div id="new-password" class="input-group">
-							<label asp-for=SecurityInfo.Password></label>
-							<span asp-validation-for="SecurityInfo.Password"></span>
-							<input asp-for="SecurityInfo.Password" />
-						</div>
-						<div id="confirm-password" class="input-group">
-							<label asp-for="SecurityInfo.ConfirmPassword"></label>
-							<span asp-validation-for="SecurityInfo.ConfirmPassword"></span>
-							<input asp-for="SecurityInfo.ConfirmPassword" />
+					<div class="info">
+						<h4>Fullstack Web Developer Course from Scratch</h4>
+						<p>By Robert Fox</p>
+						<div class="price">
+							<p>$12.50</p>
 						</div>
 
-						<div class="form-buttons">
-							<button class="btn-gray" type="reset">Cancel</button>
-							<button class="btn-theme" type="submit">Save password</button>
+						<hr />
+						<div class="duration-rating">
+							<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+							<div class="rating">
+								<i class="fa-sharp fa-light fa-thumbs-up"></i>
+								<p>94%</p>
+								<p>(4.2K)</p>
+							</div>
 						</div>
 					</div>
-				</form>
+				</div>
 
+				<div class="course-item">
+					<div class="image-container">
+						<img src="~/images/courses/html-css-javascript.svg" />
+						<button class="btn-sell" type="submit"><i class="fa-sharp fa-solid fa-bookmark"></i></button>
+					</div>
+
+					<div class="info">
+						<h4>Fullstack Web Developer Course from Scratch</h4>
+						<p>By Robert Fox</p>
+						<div class="price">
+							<p>$12.50</p>
+						</div>
+
+						<hr />
+						<div class="duration-rating">
+							<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+							<div class="rating">
+								<i class="fa-sharp fa-light fa-thumbs-up"></i>
+								<p>94%</p>
+								<p>(4.2K)</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="course-item">
+					<div class="image-container">
+						<img src="~/images/courses/front-end.svg" />
+						<button class="btn-sell" type="submit"><i class="fa-sharp fa-solid fa-bookmark"></i></button>
+					</div>
+
+					<div class="info">
+						<h4>Fullstack Web Developer Course from Scratch</h4>
+						<p>By Robert Fox</p>
+						<div class="price">
+							<p>$12.50</p>
+						</div>
+
+						<hr />
+						<div class="duration-rating">
+							<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+							<div class="rating">
+								<i class="fa-sharp fa-light fa-thumbs-up"></i>
+								<p>94%</p>
+								<p>(4.2K)</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
-			
 		</div>
+		
+	
 	</section>
 </div>

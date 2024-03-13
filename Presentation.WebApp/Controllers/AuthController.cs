@@ -171,8 +171,6 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 		ViewData["StatusMessage"] = "danger|Authantication via facebook failed";
 		return RedirectToAction("Index", "Account");
 	}
-
-
 	#endregion
 
 }

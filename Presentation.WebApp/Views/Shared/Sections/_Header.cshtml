@@ -2,7 +2,7 @@
 @inject SignInManager<UserEntity> _signInManager 
 @inject UserManager<UserEntity> _userManager
 
-<header>
+<header class="header @(ViewContext.RouteData.Values["controller"]!.ToString() == "Contact" && ViewContext.RouteData.Values["action"]!.ToString() == "Index" ? "contact-header" : "")">
     <div class="container">
         <a id="logo" asp-controller="Home" asp-action="Index"> <img src="~/images/Silicon Logotype - Light Mode.svg" alt="logo"> </a>
         <button class="btn-mobile">

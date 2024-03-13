@@ -7,11 +7,24 @@
 	int currentPage = 1;//Request.Query.ContainsKey("page") ? Convert.ToInt32(Request.Query["page"]) : 1; 
 	int startIndex = (currentPage - 1) * itemsPerPage; // Start index of items for the current page
 	int endIndex = Math.Min(startIndex + itemsPerPage - 1, totalItems - 1); // End index of items for the current page
+
+	var controller = Context.Items["BreadcrumbController"]?.ToString();
+	var action = Context.Items["BreadcrumbAction"]?.ToString();
 }
 
 <section id="courses">
     <div class="container">
-        <div class="heading">
+        
+		<nav class="breadcrumb">
+				<a href="/"><i class="fa-sharp fa-regular fa-house"></i>  Home</a>
+				<i class="fa-light fa-angles-right"></i>
+				@if (!string.IsNullOrEmpty(controller))
+				{
+				<a class="active" href="@Url.Action("Index", controller)">@controller</a>
+				}
+		</nav>
+		
+		<div class="heading">
             <h2 class="title">@Model.Title</h2> 
             <div class="tool-bar">
                 <div class="inputgroup">
@@ -21,239 +34,15 @@
                     <i class="fa-regular fa-chevron-down"></i>
                 </div>
                 <div class="inputgroup">
-                    <input type="text" id="searchInput" asp-for="@Model.SearchQuery" placeholder="Search Courses...">
+                    <input type="text" id="searchInput" asp-for="@Model.SearchQuery" placeholder="Search courses...">
                     <i class="fa-regular fa-magnifying-glass"></i>
                 </div>
             </div>
         </div>
+
 		<div class="content-contaier">
-            @* <partial name="~/Views/Shared/Sections/_CoursePartial.cshtml" /> *@
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/fullstack-web-developer.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-					<div class="badge">Best Seller</div>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/html-css-javascript.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/front-end.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/ios.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/data.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/creative.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/blender.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/ultimate.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="course-item">
-				<div class="image-container">
-					<img src="~/images/courses/learn.svg" />
-					<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-				</div>
-
-				<div class="info">
-					<h4>Fullstack Web Developer Course from Scratch</h4>
-					<p>By Robert Fox</p>
-					<div class="price">
-						<p>$12.50</p>
-					</div>
-
-					<hr />
-					<div class="duration-rating">
-						<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
-						<div class="rating">
-							<i class="fa-sharp fa-light fa-thumbs-up"></i>
-							<p>94%</p>
-							<p>(4.2K)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-        </div>
+            <partial name="~/Views/Shared/Sections/_CoursePartial.cshtml" />
+		</div>
 
 		<nav aria-label="Page navigation">
 			<ul class="pagination">

@@ -9,7 +9,8 @@ public class CoursesViewModel
 	public string SearchQuery { get; set; } = null!;
     public int SelectedCategoryId { get; set; }
 	public List<Category> Categories { get; set; } = [];
-	public List<CourseModel> CourseModels { get; set; } = [];
+	public int SelectedCourseId { get; set; }
+	public List<CourseModel> Course { get; set; } = [];
 
 }
 

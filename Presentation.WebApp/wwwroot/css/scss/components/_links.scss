@@ -13,14 +13,24 @@ a {
     @include text-nav;
     text-decoration: none;
     transition: color 0.25s ease-in-out;
-
+    
     &:hover,
     &:active,
     &:focus,
     .active {
         color: $theme;
         text-decoration: underline;
+
     }
+}
+
+.arrow-link {
+    @include text-nav;
+    text-decoration: none;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+
 }
 
 .more-link {
@@ -30,7 +40,7 @@ a {
     gap: 10px;
     text-decoration: none !important;
 
-    image-orientation {
+    i {
         @include shadow-s;
         background: $white;
         display: flex;

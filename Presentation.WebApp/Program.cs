@@ -71,7 +71,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseUserSessionValidation();
 app.UseAuthorization();
-
+app.UseMiddleware<BreadcrumbMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

@@ -1,1 +1,93 @@
-﻿
+﻿@model ContactViewModel
+
+@{
+	var controller = Context.Items["BreadcrumbController"]?.ToString();
+	var action = Context.Items["BreadcrumbAction"]?.ToString();
+}
+
+<section class="contacts">
+	
+	<div class="container">
+		<nav class="breadcrumb">
+			<a href="/"><i class="fa-sharp fa-regular fa-house"></i>  Home</a>
+			<i class="fa-light fa-angles-right"></i>
+			@if (!string.IsNullOrEmpty(controller))
+			{
+				<a class="active" href="@Url.Action("Index", controller)">@controller</a>
+			}
+		</nav>
+		<div class="content">
+			<div class="text-content">
+				<h1>@Model.Title</h1>
+				<div class="item">
+					<div class="circle">
+						<i class="fa-light fa-envelope"></i>
+					</div>
+					
+					<div class="text">
+						<h5>Email us</h5>
+						<p>Please feel free to drop us a line. We will respond as soon as possible.</p>
+						<div >
+							<a class="arrow-link" asp-controller="Contact" asp-action="Index">Leave a message <i class="fa-solid fa-arrow-right"></i></a>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="circle">
+						<i class="fa-regular fa-user-plus"></i>
+					</div>
+					
+					<div class="text">
+						<h5>Careers</h5>
+						<p>Sit ac ipsum leo lorem magna nunc mattis maecenas non vestibulum.</p>
+						<a class="arrow-link" asp-controller="Contact" asp-action="Index">Send an application <i class="fa-solid fa-arrow-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<form method="post" asp-controller="Contact" asp-action="Index">
+				<h2>Get In Contact With Us</h2>
+				<div id="form-fullname" class="input-group">
+					<label asp-for="Form.FullName"></label>
+					<span asp-validation-for="Form.FullName"></span>
+					<input asp-for="Form.FullName" />
+				</div>
+				<div id="form-email" class="input-group">
+					<label asp-for=Form.Email></label>
+					<span asp-validation-for="Form.Email"></span>
+					<input asp-for="Form.Email" />
+				</div>
+				<div id="form-service" class="input-group">
+					<label asp-for="Form.SelectedServiceId">Service <span>(optional)</span></label>
+					<div class="inputgroup">
+						<select id="service" asp-for="Form.SelectedServiceId" asp-items="@(new SelectList(Model.Services, "Id", "Name"))">
+							<option class="color-gray" value="">Choose the service you are interested in</option>
+						</select>
+						<i class="fa-regular fa-chevron-down"></i>
+					</div>
+					
+				</div>
+				<div id="form-message" class="input-group">
+					<label asp-for="Form.Message">Message</label>
+					<textarea asp-for="Form.Message"></textarea>
+				</div>
+				<div class="form-buttons">
+					<button class="btn-theme-s" asp-controller="Contact" asp-action="Index" type="submit">Send Contact Request</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div className="google-map">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2034.7793875911568!2d18.059435576552424!3d59.33663697461783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f9d6799554e87%3A0x6562d2c842903003!2sSveav%C3%A4gen%2031%2C%20111%2034%20Stockholm!5e0!3m2!1sen!2sse!4v1694281715559!5m2!1sen!2sse"
+				title="Google Map"
+				width="100%"
+				height="450"
+				style={{ border: '0' }}
+				allowFullScreen=""
+				loading="lazy"
+				referrerPolicy="no-referrer-when-downgrade">
+		</iframe>
+	</div>
+</section>
+@await Html.PartialAsync("_ValidationScriptPartial");
