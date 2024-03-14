@@ -697,6 +697,80 @@ aside nav .btn-theme-s {
   color: #6366F1;
 }
 
+.course-item {
+  box-shadow: 0px 8px 18px -8px rgba(19, 16, 34, 0.15);
+  border-radius: 8px;
+  border: 1px solid #F3F6FF;
+}
+.course-item .image-container {
+  position: relative;
+}
+.course-item .image-container img {
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+}
+.course-item .image-container .btn-sell {
+  height: 40px;
+  width: 40px;
+  background-color: #FFFFFF;
+  border: none;
+  position: absolute;
+  border-radius: 50%;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+}
+.course-item .image-container .btn-sell i {
+  font-size: 15px;
+}
+.course-item .image-container .btn-sell:hover {
+  background-color: #6366F1;
+}
+.course-item .image-container .btn-sell:hover i {
+  color: #FFFFFF;
+}
+.course-item .image-container .badge {
+  position: absolute;
+  top: 15px;
+  left: 13px;
+  z-index: 2;
+  background-color: #22C55E;
+  padding: 5px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.course-item .info {
+  padding: 20px;
+}
+.course-item .info .menu-link {
+  font-size: 22px;
+  font-weight: 900 !important;
+}
+.course-item .info .menu-link:hover {
+  color: #33354D;
+}
+.course-item .info .price p {
+  font-size: 22px;
+  font-weight: 700;
+  color: #6366F1;
+}
+.course-item .info .duration-rating {
+  display: flex;
+  gap: 25px;
+}
+.course-item .info .duration-rating .duration i {
+  padding-right: 7px;
+}
+.course-item .info .duration-rating .rating {
+  display: flex;
+  gap: 7px;
+}
+.course-item .info .duration-rating .rating i {
+  font-size: 20px;
+}
+
 .contact-header {
   background-color: #F3F6FF;
 }
@@ -1901,7 +1975,7 @@ footer .container .copyright span {
   padding-top: 50px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem 1.5rem;
+  gap: 2rem 1.7rem;
 }
 @media (min-width: 992px) {
   #courses .container .content-contaier {
@@ -1912,72 +1986,6 @@ footer .container .copyright span {
   #courses .container .content-contaier {
     grid-template-columns: 1fr 1fr 1fr;
   }
-}
-#courses .container .content-contaier .course-item {
-  box-shadow: 0px 8px 18px -8px rgba(19, 16, 34, 0.15);
-  border-radius: 8px;
-  border: 1px solid #F3F6FF;
-}
-#courses .container .content-contaier .course-item .image-container {
-  position: relative;
-}
-#courses .container .content-contaier .course-item .image-container img {
-  border: none;
-  border-radius: 8px;
-  width: 100%;
-}
-#courses .container .content-contaier .course-item .image-container .btn-sell {
-  height: 40px;
-  width: 40px;
-  background-color: #FFFFFF;
-  border: none;
-  position: absolute;
-  border-radius: 50%;
-  top: 15px;
-  right: 15px;
-  z-index: 2;
-}
-#courses .container .content-contaier .course-item .image-container .btn-sell i {
-  font-size: 15px;
-}
-#courses .container .content-contaier .course-item .image-container .btn-sell:hover {
-  background-color: #6366F1;
-}
-#courses .container .content-contaier .course-item .image-container .btn-sell:hover i {
-  color: #FFFFFF;
-}
-#courses .container .content-contaier .course-item .image-container .badge {
-  position: absolute;
-  top: 15px;
-  left: 13px;
-  z-index: 2;
-  background-color: #22C55E;
-  padding: 5px 12px;
-  font-size: 15px;
-  font-weight: 400;
-  color: #FFFFFF;
-}
-#courses .container .content-contaier .course-item .info {
-  padding: 20px;
-}
-#courses .container .content-contaier .course-item .info .price p {
-  font-size: 22px;
-  font-weight: 700;
-  color: #6366F1;
-}
-#courses .container .content-contaier .course-item .info .duration-rating {
-  display: flex;
-  gap: 25px;
-}
-#courses .container .content-contaier .course-item .info .duration-rating .duration i {
-  padding-right: 7px;
-}
-#courses .container .content-contaier .course-item .info .duration-rating .rating {
-  display: flex;
-  gap: 7px;
-}
-#courses .container .content-contaier .course-item .info .duration-rating .rating i {
-  font-size: 20px;
 }
 #courses .container .pagination {
   display: flex;
@@ -2080,7 +2088,7 @@ footer .container .copyright span {
 }
 @media (min-width: 1200px) {
   #single-course .container {
-    color: #F3F6FF;
+    color: #D4D7E5;
   }
 }
 #single-course .container .breadcrumb {
@@ -2131,18 +2139,18 @@ footer .container .copyright span {
   color: #FFBA08;
 }
 #single-course .container .duration-rating .stars .not-active {
-  color: #FFFFFF;
+  color: #D4D7E5;
 }
 #single-course .container .duration-rating i {
-  padding-right: 5px;
+  padding-right: 3px;
 }
 #single-course .container .duration-rating span {
-  color: #EFF2FC;
+  color: #D4D7E5;
   display: block;
 }
 @media (min-width: 768px) {
   #single-course .container .duration-rating span {
-    display: none;
+    display: flex;
   }
 }
 #single-course .container .author-container {
@@ -2200,7 +2208,7 @@ footer .container .copyright span {
 }
 @media (min-width: 768px) {
   #single-course .container header p {
-    color: #FFFFFF;
+    color: #33354D;
   }
 }
 @media (min-width: 992px) {
@@ -2210,7 +2218,7 @@ footer .container .copyright span {
 }
 @media (min-width: 1200px) {
   #single-course .container header p {
-    color: #FFFFFF;
+    color: #D4D7E5;
   }
 }
 #single-course .container h2 {
@@ -2233,7 +2241,7 @@ footer .container .copyright span {
   }
 }
 #single-course .container .content p {
-  color: #565973;
+  color: #33354D;
 }
 #single-course .container .content .description {
   width: 100%;

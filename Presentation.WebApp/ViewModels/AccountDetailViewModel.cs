@@ -9,4 +9,5 @@ public class AccountDetailViewModel
 	public AccountDetailBasicInfoModel BasicInfo { get; set; } = null!;
 	public AccountDetailAddressInfoModel AddressInfo { get; set; } = null!;
 	public AccountSecurityModel SecurityInfo { get; set; } = null!;
+	public CoursesViewModel SavedCourses { get; set; } = null!;
 }

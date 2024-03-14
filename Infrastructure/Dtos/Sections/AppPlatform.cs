@@ -7,7 +7,7 @@ public class AppPlatform
     public int Id { get; set; }
     public int DownloadAppId { get; set; }
     public string Name { get; set; } = null!;
-    public decimal Ratings { get; set; }
+    public double Ratings { get; set; }
     public string Platform { get; set; } = null!;
     public int Reviews { get; set; }
 

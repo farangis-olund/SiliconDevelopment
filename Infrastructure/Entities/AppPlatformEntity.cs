@@ -8,7 +8,7 @@ public class AppPlatformEntity
     public int DownloadAppId { get; set; }
     public DownloadAppEntity DownloadApp { get; set; } = null!;
     public string Name { get; set; } = null!;
-    public decimal Ratings { get; set; }
+    public double Ratings { get; set; }
     public string Platform { get; set; } = null!;
     public int Reviews { get; set; }
 

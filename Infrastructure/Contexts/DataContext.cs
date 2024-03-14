@@ -16,7 +16,10 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<SubscriptionSectionEntity> SubscriptionSection { get; set; }
     public DbSet<SwitchEntity> Switch { get; set; }
     public DbSet<TaskMasterEntity> TaskMaster { get; set; }
-    public DbSet<AddressEntity> Addresses { get; set; }
+    public DbSet<CourseEntity> Course { get; set; }
+	public DbSet<CategoryEntity> Category { get; set; }
+	public DbSet<AuthorEntity> Author { get; set; }
+
 }
 
 

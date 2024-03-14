@@ -118,12 +118,19 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 	[HttpGet]
 	public IActionResult Facebook()
 	{
-		var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback"));
+		var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("Callback"));
 		return new ChallengeResult("Facebook", authProps);
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> FacebookCallback()
+	public IActionResult Google()
+	{
+		var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("Callback"));
+		return new ChallengeResult("Google", authProps);
+	}
+
+	[HttpGet]
+	public async Task<IActionResult> Callback()
 	{
 		var info = await _signInManager.GetExternalLoginInfoAsync();
 		
@@ -171,6 +178,7 @@ public class AuthController(UserManager<UserEntity> userManager, SignInManager<U
 		ViewData["StatusMessage"] = "danger|Authantication via facebook failed";
 		return RedirectToAction("Index", "Account");
 	}
+	
 	#endregion
 
 }

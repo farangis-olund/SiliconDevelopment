@@ -4,6 +4,7 @@ using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240314111735_Courses")]
+    partial class Courses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +137,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArticleCount")
+                    b.Property<int>("ArticleCount")
                         .HasColumnType("int");
 
                     b.Property<int>("AuthorId")
@@ -156,23 +159,20 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("Digital")
                         .HasColumnType("bit");
 
-                    b.Property<double?>("DiscountPrice")
+                    b.Property<double>("DiscountPrice")
                         .HasColumnType("float");
 
-                    b.Property<int?>("DownloadedResourses")
+                    b.Property<int>("DownloadedResourses")
                         .HasColumnType("int");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
 
                     b.Property<string>("Ingress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LikeCount")
+                    b.Property<int>("LikeCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -183,9 +183,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ProgramDetails")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReviewsCount")
+                    b.Property<int>("ReviewsCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Entities;
+﻿using Infrastructure.Dtos;
+using Infrastructure.Entities;
 using Infrastructure.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -184,6 +185,22 @@ public class AccountController : Controller
 		var viewModel = new AccountDetailViewModel();
 		var accountDetailsTask = PopulateAccountDetailsAsync();
 		viewModel.ProfileInfo = (await accountDetailsTask).ProfileInfo;
+		viewModel.SavedCourses = new CoursesViewModel
+		{
+			Course =
+			[
+				new CourseModel
+				{
+					Id = 1,
+					Name = "Fullstack Web Developer Course from Scratch",
+					Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+					Author = "Albert Flores",
+					Price = 10.2,
+					Duration = "220 hours"
+
+				}
+			]
+		};
 		return View(viewModel);
 	}
 	#endregion

@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="info">
-			<h4><a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a></h4>
+			<a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a>
 			<p>By @course.Author</p>
 			<div class="price">
 				<p>$@course.Price</p>

@@ -58,7 +58,7 @@
             padding-top: 50px;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem 1.5rem;
+            gap: 2rem 1.7rem;
 
             @include lg {
                 grid-template-columns: 1fr 1fr;
@@ -68,89 +68,6 @@
                 grid-template-columns: 1fr 1fr 1fr;
             }
 
-            .course-item {
-                @include theme-secondary-shadow;
-                border-radius: 8px;
-                border: 1px solid $gray-100;
-
-                .image-container {
-                    position: relative;
-
-                    img {
-                        border: none;
-                        border-radius: 8px;
-                        width: 100%;
-                    }
-
-                    .btn-sell {
-                        height: 40px;
-                        width: 40px;
-                        background-color: $white;
-                        border: none;
-                        position: absolute;
-                        border-radius: 50%;
-                        top: 15px;
-                        right: 15px;
-                        z-index: 2;
-
-                        i {
-                            font-size: 15px;
-                        }
-
-                        &:hover {
-                            background-color: $theme;
-
-                            i {
-                                color: $white;
-                            }
-                        }
-                    }
-
-                    .badge {
-                        position: absolute;
-                        top: 15px;
-                        left: 13px;
-                        z-index: 2;
-                        background-color: $success;
-                        padding: 5px 12px;
-                        font-size: 15px;
-                        font-weight: 400;
-                        color: $white;
-                    }
-                }
-
-                .info {
-                    padding: 20px;
-
-                    .price {
-                        p {
-                            font-size: 22px;
-                            font-weight: 700;
-                            color: $theme;
-                        }
-                    }
-
-                    .duration-rating {
-                        display: flex;
-                        gap: 25px;
-
-                        .duration {
-                            i {
-                                padding-right: 7px;
-                            }
-                        }
-
-                        .rating {
-                            i {
-                                font-size: 20px;
-                            }
-
-                            display: flex;
-                            gap: 7px;
-                        }
-                    }
-                }
-            }
         }
 
         .pagination {

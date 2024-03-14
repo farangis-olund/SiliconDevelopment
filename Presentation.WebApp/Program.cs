@@ -61,6 +61,14 @@ builder.Services.AddAuthentication().AddFacebook(x =>
 
 });
 
+builder.Services.AddAuthentication().AddGoogle(x =>
+{
+    x.ClientId = "1042689527093-td0lbn8c93e52u562eka48n8djj40ui7.apps.googleusercontent.com";
+    x.ClientSecret = "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";
+
+});
+
+
 var app = builder.Build();
 app.UseHsts();
 app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
