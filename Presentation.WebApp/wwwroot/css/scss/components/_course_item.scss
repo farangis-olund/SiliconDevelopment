@@ -51,19 +51,28 @@
 
     .info {
         padding: 20px;
+
         .menu-link {
             font-size: 22px;
             font-weight: 900 !important;
-        &:hover {
-            
-            color: $gray-800;
-        }
+
+            &:hover {
+                color: $gray-800;
             }
+        }
+
         .price {
             p {
                 font-size: 22px;
                 font-weight: 700;
                 color: $theme;
+            }
+
+            span {
+                color: $gray-600;
+                font-weight: 400;
+                font-size: 22px;
+                text-decoration: line-through;
             }
         }
 

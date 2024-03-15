@@ -10,7 +10,7 @@ public class CoursesViewModel
     public int SelectedCategoryId { get; set; }
 	public List<Category> Categories { get; set; } = [];
 	public int SelectedCourseId { get; set; }
-	public List<CourseModel> Course { get; set; } = [];
+	public List<CourseModel> Courses { get; set; } = [];
 
 }
 

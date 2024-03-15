@@ -756,6 +756,12 @@ aside nav .btn-theme-s {
   font-weight: 700;
   color: #6366F1;
 }
+.course-item .info .price span {
+  color: #9397AD;
+  font-weight: 400;
+  font-size: 22px;
+  text-decoration: line-through;
+}
 .course-item .info .duration-rating {
   display: flex;
   gap: 25px;

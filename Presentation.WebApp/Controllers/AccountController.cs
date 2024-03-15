@@ -187,16 +187,16 @@ public class AccountController : Controller
 		viewModel.ProfileInfo = (await accountDetailsTask).ProfileInfo;
 		viewModel.SavedCourses = new CoursesViewModel
 		{
-			Course =
+			Courses =
 			[
 				new CourseModel
 				{
 					Id = 1,
 					Name = "Fullstack Web Developer Course from Scratch",
 					Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-					Author = "Albert Flores",
+					AuthorName = "Albert Flores",
 					Price = 10.2,
-					Duration = "220 hours"
+					Duration = 220
 
 				}
 			]

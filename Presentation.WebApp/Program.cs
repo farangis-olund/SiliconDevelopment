@@ -11,6 +11,7 @@ builder.Services.AddRouting(x => x.LowercaseUrls = true);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+
 builder.Services.AddScoped<FeatureRepository>();
 builder.Services.AddScoped<FeatureItemRepository>();
 builder.Services.AddScoped<ShowcaseRepository>();
@@ -22,6 +23,8 @@ builder.Services.AddScoped<IntegrationRepository>();
 builder.Services.AddScoped<SubscriptionSectionRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<CourseRepository>();
 
 builder.Services.AddScoped<FeatureService>();
 builder.Services.AddScoped<FeatureItemService>();
@@ -34,6 +37,8 @@ builder.Services.AddScoped<SubscriptionSectionService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<FormatReviews>();
+builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<CategoryService>();
 
 builder.Services.AddDefaultIdentity<UserEntity>(x => { 
     x.User.RequireUniqueEmail = true;

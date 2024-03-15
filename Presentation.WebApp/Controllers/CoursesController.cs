@@ -1,41 +1,23 @@
 ﻿using Infrastructure.Dtos;
+using Infrastructure.Entities;
 using Infrastructure.Models;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.ViewModels;
 
 namespace Presentation.WebApp.Controllers;
 
-public class CoursesController : Controller
+public class CoursesController(CourseService courseService, CategoryService categoryService) : Controller
 {
-    #region Index
-    [HttpGet]
+    private readonly CourseService _courseService = courseService;
+	private readonly CategoryService _categoryService = categoryService;
+
+	#region Index
+	[HttpGet]
 	[Route("/courses")]
-	public IActionResult Index()
+	public async Task<IActionResult> Index()
 	{
-		var viewModel = new CoursesViewModel
-		{
-			Categories =
-		    [
-			    new Category { Id = 1, Name = "Category 1" },
-			    new Category { Id = 2, Name = "Category 2" },
-			    new Category { Id = 3, Name = "Category 3" },
-		    ],
-
-
-			Course =
-			[
-				new CourseModel 
-                { Id = 1, 
-                  Name = "Fullstack Web Developer Course from Scratch",
-                  Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                  Author = "Albert Flores",
-				  Price = 10.2,
-                  Duration = "220 hours"
-
-				}
-			]
-		};
-
+		var viewModel = await PopulateAllCoursesAsync();
 		return View(viewModel);
 	}
 
@@ -51,27 +33,88 @@ public class CoursesController : Controller
 
     #region Single course
     [HttpGet]
-    public IActionResult SingleCourse(int id)
+    public async Task<IActionResult> SingleCourse(int id)
     {
-		//var course = _courseService.GetCourseById(id);
-
-		//if (course == null)
-		//{
-		//	return NotFound(); 
-		//}
-		var viewModel = new CourseModel
-		{
-			Id = 1,
-			Name = "Fullstack Web Developer Course from Scratch",
-			Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-			Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-			Author = "Albert Flores",
-			Price = 10.2,
-			Duration = "220 hours"
-		};
-
+			var viewModel= await PopulateOneCourseAsync(id);
+	
 		return View(viewModel);
     }
 
-    #endregion
+	#endregion
+
+	private async Task<CoursesViewModel> PopulateAllCoursesAsync()
+	{
+		var viewModel = new CoursesViewModel();
+
+		var categoryResponse = await _categoryService.GetAllCategoriesAsync();
+		var coursesResponse = await _courseService.GetAllCoursesAsync();
+
+		if (categoryResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
+		{
+			viewModel.Categories = ((List<CategoryEntity>)categoryResponse.ContentResult!).Select(c => new Category { Id = c.Id, Name = c.Name }).ToList();
+		}
+		if (coursesResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
+		{
+			viewModel.Courses = ((List<CourseEntity>)coursesResponse.ContentResult!).Select(c => new CourseModel
+			{
+				Id = c.Id,
+				Name = c.Name,
+				Description = c.Description,
+				AuthorName = c.Author.AuthorName,
+				Price = c.Price,
+				Duration = c.Duration,
+				Ingress = c.Ingress,
+				ProgramDetails = c.ProgramDetails,
+				DownloadedResourses = c.DownloadedResourses,
+				ArticleCount = c.ArticleCount,
+				ReviewsCount = c.ReviewsCount,
+				LikeCount = c.LikeCount,
+				Digital = c.Digital,
+				BestSeller = c.BestSeller,
+				ImgUrl = c.ImgUrl,
+				CategoryName = c.Category.Name,
+				AuthorDescription = c.Author.AuthorDescription,
+				Subscribers = c.Author.Subscribers,
+				Followers = c.Author.Followers
+			}).ToList();
+		}
+		return viewModel;
+	}
+
+	private async Task<CourseModel> PopulateOneCourseAsync(int id)
+	{
+		var viewModel = new CourseModel();
+
+		var courseResponse = await _courseService.GetCourseAsync(id);
+
+		if (courseResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
+		{
+			var c = (CourseEntity)courseResponse.ContentResult!;
+
+			viewModel = new CourseModel
+			{
+				Id = c.Id,
+				Name = c.Name,
+				Description = c.Description,
+				AuthorName = c.Author.AuthorName,
+				Price = c.Price,
+				Duration = c.Duration,
+				Ingress = c.Ingress,
+				ProgramDetails = c.ProgramDetails,
+				DownloadedResourses = c.DownloadedResourses,
+				ArticleCount = c.ArticleCount,
+				ReviewsCount = c.ReviewsCount,
+				LikeCount = c.LikeCount,
+				Digital = c.Digital,
+				BestSeller = c.BestSeller,
+				ImgUrl = c.ImgUrl,
+				CategoryName = c.Category.Name,
+				AuthorDescription = c.Author.AuthorDescription,
+				Subscribers = c.Author.Subscribers,
+				Followers = c.Author.Followers
+			};
+		}
+
+		return viewModel;
+	}
 }

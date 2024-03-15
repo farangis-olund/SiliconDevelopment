@@ -49,7 +49,7 @@
                 <img src="~/images/single-course/author-img.svg"/>
                 <div class="author">
                     <h6>Created by</h6>
-                    <p>@Model.Author</p>
+                    <p>@Model.AuthorName</p>
                 </div>
             </div>
         </header>
@@ -73,7 +73,17 @@
                 <p><i class="fa-regular fa-down-to-bracket"></i> 25 downloadable resources</p>
                 <p><i class="fa-regular fa-infinity"></i> Full lifetime access</p>
                 <p><i class="fa-regular fa-trophy"></i> Certificate of completion</p>
-                <h3>$@Model.Price <span>$49.00</span></h3>
+                <h3>
+                    $
+                    @if (Model.DiscountPrice != null)
+                    {
+                        @Model.DiscountPrice <span>$@Model.Price</span>
+                    }
+                    else
+                    {
+                        @Model.Price
+                    }
+                </h3>
                 <a class="btn-theme-s">Join course</a>
             </div>
         </div>

@@ -1,27 +1,38 @@
 ﻿@model CoursesViewModel
-@foreach (var course in Model.Course)
+@foreach (var course in Model.Courses)
 {
 	<div class="course-item">
 		<div class="image-container">
 			<img src="~/images/courses/fullstack-web-developer.svg" />
 			<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-			<div class="badge">Best Seller</div>
+			@if(course.BestSeller == true)
+			{
+				<div class="badge">Best Seller</div>
+			}
 		</div>
 
 		<div class="info">
 			<a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a>
-			<p>By @course.Author</p>
+			<p>By @course.AuthorName</p>
 			<div class="price">
-				<p>$@course.Price</p>
+				<p>$
+					@if (course.DiscountPrice != null)
+					{
+						@course.DiscountPrice <span>$@course.Price</span>
+					}else
+					{
+						@course.Price
+					}
+				</p>
 			</div>
 
 			<hr />
 			<div class="duration-rating">
-				<div class="duration"><i class="fa-regular fa-clock"></i> 220 hours</div>
+				<div class="duration"><i class="fa-regular fa-clock"></i> @course.Duration hours</div>
 				<div class="rating">
 					<i class="fa-sharp fa-light fa-thumbs-up"></i>
 					<p>94%</p>
-					<p>(4.2K)</p>
+					<p>(@FormatReviews.Reviews((int)course.ReviewsCount!))</p>
 				</div>
 			</div>
 		</div>

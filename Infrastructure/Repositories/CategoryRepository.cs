@@ -4,7 +4,7 @@ using Infrastructure.Entities;
 
 namespace Infrastructure.Repositories
 {
-	public class AddressRepository(DataContext context) : Repo<DataContext, AddressEntity>(context)
-    {
-    }
+	public class CategoryRepository(DataContext context) : Repo<DataContext, CategoryEntity>(context)
+	{
+	}
 }
