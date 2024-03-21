@@ -19,6 +19,8 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<CourseEntity> Course { get; set; }
 	public DbSet<CategoryEntity> Category { get; set; }
 	public DbSet<AuthorEntity> Author { get; set; }
+	public DbSet<ContactEntity> Contact { get; set; }
+	public DbSet<ServiceEntity> Service { get; set; }
 
 }
 

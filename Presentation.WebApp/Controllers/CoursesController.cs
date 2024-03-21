@@ -2,15 +2,17 @@
 using Infrastructure.Entities;
 using Infrastructure.Models;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels;
 
 namespace Presentation.WebApp.Controllers;
 
-public class CoursesController(CourseService courseService, CategoryService categoryService) : Controller
+[Authorize]
+public class CoursesController(CategoryService categoryService) : Controller
 {
-    private readonly CourseService _courseService = courseService;
-	private readonly CategoryService _categoryService = categoryService;
+    private readonly CategoryService _categoryService = categoryService;
 
 	#region Index
 	[HttpGet]
@@ -18,6 +20,7 @@ public class CoursesController(CourseService courseService, CategoryService cate
 	public async Task<IActionResult> Index()
 	{
 		var viewModel = await PopulateAllCoursesAsync();
+
 		return View(viewModel);
 	}
 
@@ -25,9 +28,7 @@ public class CoursesController(CourseService courseService, CategoryService cate
     [Route("/courses")]
     public IActionResult Index(CoursesViewModel viewModel)
     {
-        
-
-        return View(viewModel);
+       return View(viewModel);
     }
     #endregion
 
@@ -47,36 +48,21 @@ public class CoursesController(CourseService courseService, CategoryService cate
 		var viewModel = new CoursesViewModel();
 
 		var categoryResponse = await _categoryService.GetAllCategoriesAsync();
-		var coursesResponse = await _courseService.GetAllCoursesAsync();
-
+		
 		if (categoryResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
 		{
 			viewModel.Categories = ((List<CategoryEntity>)categoryResponse.ContentResult!).Select(c => new Category { Id = c.Id, Name = c.Name }).ToList();
 		}
-		if (coursesResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
+
+		using var http = new HttpClient();
+		var response = await http.GetAsync("https://localhost:7267/api/courses");
+		var json = await response.Content.ReadAsStringAsync();
+		var data = JsonConvert.DeserializeObject<ResponseResult>(json);
+
+		if (data!.StatusCode == Infrastructure.Models.StatusCode.Ok)
 		{
-			viewModel.Courses = ((List<CourseEntity>)coursesResponse.ContentResult!).Select(c => new CourseModel
-			{
-				Id = c.Id,
-				Name = c.Name,
-				Description = c.Description,
-				AuthorName = c.Author.AuthorName,
-				Price = c.Price,
-				Duration = c.Duration,
-				Ingress = c.Ingress,
-				ProgramDetails = c.ProgramDetails,
-				DownloadedResourses = c.DownloadedResourses,
-				ArticleCount = c.ArticleCount,
-				ReviewsCount = c.ReviewsCount,
-				LikeCount = c.LikeCount,
-				Digital = c.Digital,
-				BestSeller = c.BestSeller,
-				ImgUrl = c.ImgUrl,
-				CategoryName = c.Category.Name,
-				AuthorDescription = c.Author.AuthorDescription,
-				Subscribers = c.Author.Subscribers,
-				Followers = c.Author.Followers
-			}).ToList();
+			var courseEntities = JsonConvert.DeserializeObject<List<CourseEntity>>(data.ContentResult!.ToString()!);
+			viewModel.Courses = courseEntities!.Select(MapToCourseModel).ToList();
 		}
 		return viewModel;
 	}
@@ -85,36 +71,43 @@ public class CoursesController(CourseService courseService, CategoryService cate
 	{
 		var viewModel = new CourseModel();
 
-		var courseResponse = await _courseService.GetCourseAsync(id);
+		using var http = new HttpClient();
+		var response = await http.GetAsync($"https://localhost:7267/api/course/{id}");
+		var json = await response.Content.ReadAsStringAsync();
+		var data = JsonConvert.DeserializeObject<ResponseResult>(json);
 
-		if (courseResponse.StatusCode == Infrastructure.Models.StatusCode.Ok)
+		if (data!.StatusCode == Infrastructure.Models.StatusCode.Ok)
 		{
-			var c = (CourseEntity)courseResponse.ContentResult!;
-
-			viewModel = new CourseModel
-			{
-				Id = c.Id,
-				Name = c.Name,
-				Description = c.Description,
-				AuthorName = c.Author.AuthorName,
-				Price = c.Price,
-				Duration = c.Duration,
-				Ingress = c.Ingress,
-				ProgramDetails = c.ProgramDetails,
-				DownloadedResourses = c.DownloadedResourses,
-				ArticleCount = c.ArticleCount,
-				ReviewsCount = c.ReviewsCount,
-				LikeCount = c.LikeCount,
-				Digital = c.Digital,
-				BestSeller = c.BestSeller,
-				ImgUrl = c.ImgUrl,
-				CategoryName = c.Category.Name,
-				AuthorDescription = c.Author.AuthorDescription,
-				Subscribers = c.Author.Subscribers,
-				Followers = c.Author.Followers
-			};
+			var courseEntity = JsonConvert.DeserializeObject<CourseEntity>(data.ContentResult!.ToString()!);
+			viewModel = MapToCourseModel(courseEntity!);
 		}
 
 		return viewModel;
+	}
+
+	private CourseModel MapToCourseModel(CourseEntity entity)
+	{
+		return new CourseModel
+		{
+			Id = entity.Id,
+			Name = entity.Name,
+			Description = entity.Description,
+			AuthorName = entity.Author.AuthorName,
+			Price = entity.Price,
+			Duration = (double)entity.Duration!,
+			Ingress = entity.Ingress,
+			ProgramDetails = entity.ProgramDetails,
+			DownloadedResourses = entity.DownloadedResourses,
+			ArticleCount = entity.ArticleCount,
+			ReviewsCount = entity.ReviewsCount,
+			LikeCount = entity.LikeCount,
+			Digital = entity.Digital,
+			BestSeller = entity.BestSeller,
+			ImgUrl = entity.ImgUrl,
+			CategoryName = entity.Category.Name,
+			AuthorDescription = entity.Author.AuthorDescription,
+			Subscribers = entity.Author.Subscribers,
+			Followers = entity.Author.Followers
+		};
 	}
 }

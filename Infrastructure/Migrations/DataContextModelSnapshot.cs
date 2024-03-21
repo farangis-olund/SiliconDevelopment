@@ -126,6 +126,36 @@ namespace Infrastructure.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.ContactEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Contact");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -146,7 +176,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -162,7 +192,7 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("DownloadedResourses")
                         .HasColumnType("int");
 
-                    b.Property<double>("Duration")
+                    b.Property<double?>("Duration")
                         .HasColumnType("float");
 
                     b.Property<string>("ImgUrl")
@@ -175,6 +205,9 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("LikeCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LikePercentage")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,6 +216,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ProgramDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProgramGoals")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ReviewsCount")
@@ -314,6 +350,23 @@ namespace Infrastructure.Migrations
                     b.HasIndex("IntegrationId");
 
                     b.ToTable("IntegrationTools");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.ServiceEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.ShowcaseEntity", b =>
@@ -706,6 +759,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("DownloadApp");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.ContactEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.ServiceEntity", "Service")
+                        .WithMany("Contacts")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.AuthorEntity", "Author")
@@ -835,6 +899,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Entities.IntegrationEntity", b =>
                 {
                     b.Navigation("IntegrationTools");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.ServiceEntity", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

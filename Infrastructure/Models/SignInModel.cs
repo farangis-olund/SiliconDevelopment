@@ -16,6 +16,5 @@ public class SignInModel
 	public string Password { get; set; } = null!;
 
 	[Display(Name = "Remember me")]
-	
 	public bool RememberMe { get; set; } = false;
 }

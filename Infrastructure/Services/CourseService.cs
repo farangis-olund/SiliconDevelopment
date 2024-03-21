@@ -1,30 +1,23 @@
-﻿
-using Infrastructure.Entities;
+﻿using Infrastructure.Entities;
 using Infrastructure.Factories;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
 
 namespace Infrastructure.Services;
 
-public class CourseService
+public class CourseService(CourseRepository courseRepository)
 {
-	private readonly CourseRepository _courseRepository;
-
-	public CourseService(CourseRepository courseRepository)
-	{
-		_courseRepository = courseRepository;
-
-	}
+	private readonly CourseRepository _courseRepository = courseRepository;
 
 	public async Task<ResponseResult> AddCourseAsync(CourseEntity course)
 	{
 		try
 		{
-			var existingcourse = await _courseRepository.GetOneAsync(c => c.Id == course.Id);
+			var existingcourse = await _courseRepository.GetOneAsync(c => c.Name == course.Name);
 
 			if (existingcourse != null)
 			{
-				return null!;
+				return ResponseFactory.Exists();
 			}
 			
 			return await _courseRepository.AddAsync(course);
@@ -39,7 +32,8 @@ public class CourseService
 	{
 		try
 		{
-			return await _courseRepository.GetOneAsync(c => c.Id == id);
+			var result = await _courseRepository.GetOneAsync(c => c.Id == id);
+			return ResponseFactory.Ok(result);
 
 		}
 		catch (Exception ex)
@@ -55,7 +49,7 @@ public class CourseService
 			var courseEntities = await _courseRepository.GetAllAsync();
 
 			if (courseEntities != null)
-				return courseEntities;
+				return ResponseFactory.Ok(courseEntities);
 			return ResponseFactory.NotFound();
 		}
 		catch (Exception ex)
@@ -64,11 +58,11 @@ public class CourseService
 		}
 	}
 
-	public async Task<ResponseResult> UpdateCourseAsync(CourseEntity course)
+	public async Task<ResponseResult> UpdateCourseAsync(int id, CourseEntity course)
 	{
 		try
 		{
-			var response = await _courseRepository.GetOneAsync(c => c.Id == course.Id);
+			var response = await _courseRepository.GetOneAsync(c => c.Id == id);
 
 			if (response.StatusCode == StatusCode.Ok)
 			{
@@ -89,7 +83,7 @@ public class CourseService
 
 				var updateResponse = await _courseRepository.UpdateAsync(c => c.Id == course.Id, existingcourse);
 
-				return updateResponse;
+				return ResponseFactory.Ok(updateResponse);
 			}
 			else
 			{

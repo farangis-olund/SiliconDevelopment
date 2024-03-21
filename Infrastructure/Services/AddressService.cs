@@ -6,17 +6,11 @@ using Infrastructure.Repositories;
 
 namespace Infrastructure.Services;
 
-public class AddressService
+public class AddressService(AddressRepository addressRepository)
 {
-    private readonly AddressRepository _addressRepository;
+    private readonly AddressRepository _addressRepository = addressRepository;
 
-    public AddressService(AddressRepository addressRepository)
-    {
-        _addressRepository = addressRepository;
-
-    }
-
-    public async Task<ResponseResult> AddAddressAsync(AddressEntity address)
+	public async Task<ResponseResult> AddAddressAsync(AddressEntity address)
     {
         try
         {

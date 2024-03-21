@@ -10,21 +10,14 @@ using Presentation.WebApp.ViewModels;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class AccountController : Controller
+public class AccountController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, AddressService addressService) : Controller
 {
-    private readonly UserManager<UserEntity> _userManager;
-	private readonly SignInManager<UserEntity> _signInManager;
-	private readonly AddressService _addressService;
-
-
-    public AccountController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, AddressService addressService)
-    {
-        _userManager = userManager;
-		_signInManager = signInManager;
-        _addressService = addressService;
-    }
-    #region Index
-    [HttpGet]
+    private readonly UserManager<UserEntity> _userManager = userManager;
+	private readonly SignInManager<UserEntity> _signInManager = signInManager;
+	private readonly AddressService _addressService = addressService;
+	
+	#region Index
+	[HttpGet]
     [Route("/account")]
     public async Task<IActionResult> Index()
     {

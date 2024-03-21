@@ -1,4 +1,5 @@
-﻿namespace Infrastructure.Entities;
+﻿
+namespace Infrastructure.Entities;
 
 public class AuthorEntity
 {
@@ -7,6 +8,7 @@ public class AuthorEntity
 	public string AuthorDescription { get; set; } = null!;
 	public int Subscribers { get; set; }
 	public int Followers { get; set; }
+		
 	public ICollection<CourseEntity> Courses { get; set; } = [];
 
 }
