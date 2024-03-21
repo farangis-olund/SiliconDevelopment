@@ -21,6 +21,15 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
 	public DbSet<AuthorEntity> Author { get; set; }
 	public DbSet<ContactEntity> Contact { get; set; }
 	public DbSet<ServiceEntity> Service { get; set; }
+    public DbSet<UserCourseEntity> UserCourse { get; set; }
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<UserCourseEntity>()
+			.HasKey(uc => new { uc.UserId, uc.CourseId }); 
+
+		base.OnModelCreating(modelBuilder);
+	}
 
 }
 

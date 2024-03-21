@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Helpers;
 using Infrastructure.Entities;
 using Presentation.WebApp.Helpers;
+using Presentation.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(x => x.LowercaseUrls = true);
@@ -39,6 +40,9 @@ builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<FormatReviews>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<CategoryService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<ApiCourseService>();
 
 builder.Services.AddDefaultIdentity<UserEntity>(x => { 
     x.User.RequireUniqueEmail = true;
@@ -80,6 +84,7 @@ app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseUserSessionValidation();

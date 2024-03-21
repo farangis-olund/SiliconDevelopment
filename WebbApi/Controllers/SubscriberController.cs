@@ -60,7 +60,7 @@ public class SubscriberController(SubscriptionService subscriptionService) : Con
 
 	}
 
-	[HttpGet("/api/subscriber {id}")]
+	[HttpGet("/api/subscriber/{id}")]
 	public async Task<IActionResult> Get(int id)
 	{
 		try
@@ -83,7 +83,7 @@ public class SubscriberController(SubscriptionService subscriptionService) : Con
 	#endregion
 
 	#region Update
-	[HttpPut("/api/subscriber {id}")]
+	[HttpPut("/api/subscriber/{id}")]
 	public async Task<IActionResult> UpdateOne(int id, Subscription model)
 	{
 		try
@@ -110,7 +110,7 @@ public class SubscriberController(SubscriptionService subscriptionService) : Con
 	#endregion
 
 	#region Delete
-	[HttpDelete("/api/subscriber {email}")]
+	[HttpDelete("/api/subscriber/{email}")]
 	public async Task<IActionResult> DeleteOne(string email)
 	{
 		try

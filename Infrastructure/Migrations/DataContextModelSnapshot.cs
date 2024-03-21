@@ -524,6 +524,21 @@ namespace Infrastructure.Migrations
                     b.ToTable("TaskMaster");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.UserCourseEntity", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UserCourse");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -811,6 +826,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Integration");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.UserCourseEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.CourseEntity", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Entities.UserEntity", "User")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.AddressEntity", "Address")
@@ -904,6 +938,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Entities.ServiceEntity", b =>
                 {
                     b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
+                {
+                    b.Navigation("UserCourses");
                 });
 #pragma warning restore 612, 618
         }

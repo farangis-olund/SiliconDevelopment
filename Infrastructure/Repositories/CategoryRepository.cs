@@ -6,5 +6,6 @@ namespace Infrastructure.Repositories
 {
 	public class CategoryRepository(DataContext context) : Repo<DataContext, CategoryEntity>(context)
 	{
+
 	}
 }

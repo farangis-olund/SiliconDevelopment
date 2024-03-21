@@ -49,6 +49,19 @@ namespace Infrastructure.Repositories
             }
 		}
 
+		public virtual async Task<ResponseResult> GetAllAsync(Expression<Func<TEntity, bool>> predicate)
+		{
+			try
+			{
+				IEnumerable<TEntity> result = await _context.Set<TEntity>().Where(predicate).ToListAsync();
+				return ResponseFactory.Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return ResponseFactory.Error(ex.Message);
+			}
+		}
+
 		public virtual async Task<ResponseResult> GetOneAsync(Expression<Func<TEntity, bool>> predicate, Func<Task<TEntity>> createIfNotFound)
 		{
 			try
