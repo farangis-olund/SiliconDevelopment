@@ -32,6 +32,16 @@ public class CourseEntity
 
 	public static implicit operator CourseEntity(CourseModel model)
 	{
+		return ToCourseEntity(model);
+	}
+
+	public static implicit operator CourseEntity(CourseRegistrationModel model)
+	{
+		return ToCourseEntity(model);
+	}
+
+	public static CourseEntity ToCourseEntity(CourseBaseModel model)
+	{
 		return new CourseEntity
 		{
 			Name = model.Name,
@@ -52,4 +62,5 @@ public class CourseEntity
 			ImgUrl = model.ImgUrl
 		};
 	}
+
 }

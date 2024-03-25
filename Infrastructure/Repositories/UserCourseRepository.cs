@@ -1,6 +1,5 @@
 ﻿
 using Infrastructure.Contexts;
-using Infrastructure.Dtos;
 using Infrastructure.Entities;
 using Infrastructure.Factories;
 using Infrastructure.Models;
@@ -20,8 +19,10 @@ namespace Infrastructure.Repositories
 				var result = await _context.Set<UserCourseEntity>()
 					.Where(predicate)
 					.ToListAsync();
+				if (result.Count > 0)
+					return ResponseFactory.Ok(result);
+				return ResponseFactory.NotFound();
 
-				return ResponseFactory.Ok(result);
 			}
 			catch (Exception ex)
 			{

@@ -38,9 +38,10 @@ namespace Infrastructure.Repositories
 					.Include(x => x.Author)
 					.Include(x => x.Category)
 					.FirstOrDefaultAsync(predicate);
-
-
-				return ResponseFactory.Ok(result!);
+				if(result == null)
+					return ResponseFactory.NotFound();
+				else
+					return ResponseFactory.Ok(result!);
 			}
 			catch (Exception ex)
 			{

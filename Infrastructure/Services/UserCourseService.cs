@@ -16,7 +16,7 @@ public class UserCourseService(UserCourseRepository userCourseRepository)
 		{
 			var existinguserCourse = await _userCourseRepository.GetOneAsync(c => c.UserId == userId && c.CourseId == courseId);
 
-			if (existinguserCourse != null)
+			if (existinguserCourse.StatusCode == StatusCode.Ok)
 			{
 				return ResponseFactory.Exists();
 			}
@@ -54,8 +54,8 @@ public class UserCourseService(UserCourseRepository userCourseRepository)
 		{
 			var userCourseEntities = await _userCourseRepository.GetAllAsync(c => c.UserId == userId);
 
-			if (userCourseEntities != null)
-				return ResponseFactory.Ok(userCourseEntities);
+			if (userCourseEntities.StatusCode == StatusCode.Ok)
+				return ResponseFactory.Ok(userCourseEntities.ContentResult!);
 			return ResponseFactory.NotFound();
 		}
 		catch (Exception ex)
@@ -70,9 +70,29 @@ public class UserCourseService(UserCourseRepository userCourseRepository)
 		{
 			var existinguserCourse = await _userCourseRepository.GetOneAsync(c => c.UserId == userId && c.CourseId == courseId);
 
-			if (existinguserCourse != null)
+			if (existinguserCourse.StatusCode == StatusCode.Ok)
 			{
 				await _userCourseRepository.RemoveAsync(c => c.UserId == userId && c.CourseId == courseId);
+				return ResponseFactory.Ok("Successfully removed!");
+			}
+
+			return ResponseFactory.NotFound();
+		}
+		catch (Exception ex)
+		{
+			return ResponseFactory.Error(ex.Message);
+		}
+	}
+
+	public async Task<ResponseResult> DeleteAllUserCoursesAsync(string userId)
+	{
+		try
+		{
+			var existinguserCourse = await _userCourseRepository.GetAllAsync(c => c.UserId == userId);
+
+			if (existinguserCourse.StatusCode == StatusCode.Ok)
+			{
+				await _userCourseRepository.RemoveAsync(c => c.UserId == userId);
 				return ResponseFactory.Ok("Successfully removed!");
 			}
 

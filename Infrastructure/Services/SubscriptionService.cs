@@ -16,7 +16,7 @@ public class SubscriptionService(SubscriptionRepository subscriptionRepository)
 		{
 			var existingSubscription = await _subscriptionRepository.GetOneAsync(c => c.Email == subscription.Email);
 
-			if (existingSubscription != null)
+			if (existingSubscription.StatusCode == StatusCode.Ok)
 			{
 				return ResponseFactory.Exists("Email already exists");
 			}

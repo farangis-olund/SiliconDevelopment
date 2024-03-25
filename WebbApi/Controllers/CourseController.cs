@@ -12,7 +12,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 
 	#region Create
 	[HttpPost("/api/course")]
-	public async Task<IActionResult> Create(CourseModel model)
+	public async Task<IActionResult> Create(CourseRegistrationModel model)
 	{
 		try
 		{

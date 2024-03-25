@@ -9,12 +9,15 @@
 		<partial name="_AsideProfile.cshtml" />
 		
 		<div class="details">
-			<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
 			<div class="title-bar">
 				<h2>Saved items</h2>
-				<button class="btn-gray" asp-controller="Courses" asp-action="Delete"><i class="fa-sharp fa-regular fa-trash"></i> Delete all</button>
+				<form asp-controller="Account" asp-action="DeleteAllCourses" method="post">
+					<button type="submit" class="btn-gray">
+						<i class="fa-sharp fa-regular fa-trash"></i> Delete all
+					</button>
+				</form>
 			</div>
-
+			<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
 			<section class="content-contaier">
 				<partial name="~/Views/Shared/Sections/_CoursePartial.cshtml" for="@Model.SavedCourses" />
 			</section>

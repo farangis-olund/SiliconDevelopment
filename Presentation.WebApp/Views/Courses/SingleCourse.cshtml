@@ -5,8 +5,12 @@
 }
 
 <section id="single-course">
+    <div class="overlay">
+        <img class="header-img-background" src="~/images/courses/@Model.ImgUrl" alt="Course Image">
+    </div>
+   
     <div class="container">
-        <img class="header-img-background" src="~/images/single-course/banner.svg" />
+        
         <header>
             <nav class="breadcrumb">
                 <a href="/"><i class="fa-sharp fa-regular fa-house"></i> Home</a>
@@ -36,17 +40,17 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star not-active"></i>
                 </div>
-                <p>(4.2K reviews)</p>
+                <p>@($"{(Model.ReviewsCount / 1000.0):0.#}K reviews")</p>
                 <span> | </span>
                 
-                <p><i class="fa-sharp fa-light fa-thumbs-up"></i> 5K likes</p>
+                <p><i class="fa-sharp fa-light fa-thumbs-up"></i> @($"{(Model.ReviewsCount / 1000.0):0.#}K likes")</p>
                 <span> | </span>
 
-                <div class="duration"><i class="fa-regular fa-clock"></i>  220 hours</div>
+                <div class="duration"><i class="fa-regular fa-clock"></i> @($"{Model.Duration}hours")</div>
             </div>
 
             <div class="author-container">
-                <img src="~/images/single-course/author-img.svg"/>
+                <img src="@Url.Content("~/images/authors/" + $"{Model.AuthorName.ToLower().Replace(" ", "-")}-avatar.svg")" />
                 <div class="author">
                     <h6>Created by</h6>
                     <p>@Model.AuthorName</p>
@@ -54,28 +58,32 @@
             </div>
         </header>
         <div class="content">
+            <partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
             <div class="description">
                 <h2>Course Description</h2>
-                <p>Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.</p>
+                <p>@Model.Description</p>
                 <h4>What you'll learn</h4>
                 <div class="list">
-                    <p><i class="fa-regular fa-circle-check"></i> Sed lectus donec amet eu turpis interdum.</p>
-                    <p><i class="fa-regular fa-circle-check"></i> Nulla at consectetur vitae dignissim porttitor.</p>
-                    <p><i class="fa-regular fa-circle-check"></i> Phasellus id vitae dui aliquet mi.</p>
-                    <p><i class="fa-regular fa-circle-check"></i> Integer cursus vitae, odio feugiat iaculis aliquet diam, et purus.</p>
-                    <p><i class="fa-regular fa-circle-check"></i> In aenean dolor diam tortor orci eu.</p>
+                    @if(Model.ProgramGoals != null)
+                    {
+                        foreach (var item in Model.ProgramGoals.Split(";"))
+                        {
+                            <p><i class="fa-regular fa-circle-check"></i> @item</p>
+                        }
+                    }
+                
                 </div>
              </div>
             <div class="info-card">
                 <h4>This course includes:</h4>
-                <p><i class="fa-solid fa-display"></i> 148 hours on-demand video</p>
-                <p><i class="fa-regular fa-file-lines"></i> 18 articles</p>
-                <p><i class="fa-regular fa-down-to-bracket"></i> 25 downloadable resources</p>
+                <p><i class="fa-solid fa-display"></i> @Model.Duration hours on-demand video</p>
+                <p><i class="fa-regular fa-file-lines"></i>@Model.ArticleCount articles</p>
+                <p><i class="fa-regular fa-down-to-bracket"></i>@Model.DownloadedResourses downloadable resources</p>
                 <p><i class="fa-regular fa-infinity"></i> Full lifetime access</p>
                 <p><i class="fa-regular fa-trophy"></i> Certificate of completion</p>
                 <h3>
                     $
-                    @if (Model.DiscountPrice != null)
+                    @if (Model.DiscountPrice > 0)
                     {
                         @Model.DiscountPrice <span>$@Model.Price</span>
                     }
@@ -84,7 +92,11 @@
                         @Model.Price
                     }
                 </h3>
-                <a class="btn-theme-s">Join course</a>
+                <form asp-controller="Courses" asp-action="Join" method="post">
+                    <input asp-for="@Model.Id" type="hidden" value="@Model.Id" />
+                    <button type="submit" class="btn-theme-s">Join course</button>
+                </form>
+             
             </div>
         </div>
         
@@ -153,14 +165,14 @@
         </div>
         
         <div class="author-info">
-            <img src="~/images/single-course/author-big-img.svg"/>
+            <img src="@Url.Content("~/images/authors/" + $"{Model.AuthorName.ToLower().Replace(" ", "-")}.svg")" />
             <div class="text-block">
                 <p>Learn from the best</p>
-                <h1>Albert Flores</h1>
-                <p>Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.</p>
+                <h1>@Model.AuthorName</h1>
+                <p>@Model.AuthorDescription</p>
                 <div class="buttons">
-                    <a class="btn-red"><i class="fa-brands fa-youtube"></i> 240k subscribers</a>
-                    <a class="btn-gray"><i class="fa-brands fa-square-facebook"></i> 180k followers</a>
+                    <a class="btn-red"><i class="fa-brands fa-youtube"></i>@($"{(Model.Subscribers / 1000.0):0.#}k subscribers")</a>
+                    <a class="btn-gray"><i class="fa-brands fa-square-facebook"></i>@($"{(Model.Followers / 1000.0):0.#}k followers")</a>
                 </div>
                 <img class="decor" src="~/images/single-course/pattern.svg" />
             </div>

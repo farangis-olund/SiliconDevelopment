@@ -5,22 +5,48 @@ using Infrastructure.Repositories;
 
 namespace Infrastructure.Services;
 
-public class CourseService(CourseRepository courseRepository)
+public class CourseService(CourseRepository courseRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository)
 {
 	private readonly CourseRepository _courseRepository = courseRepository;
-
-	public async Task<ResponseResult> AddCourseAsync(CourseEntity course)
+	private readonly AuthorRepository _authorRepository = authorRepository;
+	private readonly CategoryRepository _categoryRepository = categoryRepository;
+	public async Task<ResponseResult> AddCourseAsync(CourseRegistrationModel course)
 	{
 		try
 		{
 			var existingcourse = await _courseRepository.GetOneAsync(c => c.Name == course.Name);
 
-			if (existingcourse != null)
+			if (existingcourse.StatusCode == StatusCode.Ok)
 			{
 				return ResponseFactory.Exists();
 			}
+
+			var authorEntity = await _authorRepository.GetOneAsync(c => c.AuthorName == course.AuthorName);
+			var authorId = authorEntity.StatusCode == StatusCode.Ok
+				? ((AuthorEntity)authorEntity.ContentResult!).Id
+				: ((AuthorEntity)(await _authorRepository.AddAsync(new AuthorEntity
+				{
+					AuthorName = course.AuthorName,
+					AuthorDescription = course.AuthorDescription,
+					Subscribers = course.Subscribers,
+					Followers = course.Followers
+				})).ContentResult!).Id;
+
+			var categoryEntity = await _categoryRepository.GetOneAsync(c => c.Name == course.CategoryName);
+			var categoryId = categoryEntity.ContentResult != null
+				? ((CategoryEntity)categoryEntity.ContentResult).Id
+				: ((CategoryEntity)(await _categoryRepository.AddAsync(new CategoryEntity
+				{
+					Name = course.CategoryName,
+				})).ContentResult!).Id;
+
+			var newCourseEntity = CourseEntity.ToCourseEntity(course);
+			newCourseEntity.AuthorId = authorId;
+			newCourseEntity.CategoryId = categoryId;
 			
-			return await _courseRepository.AddAsync(course);
+			var result = await _courseRepository.AddAsync(newCourseEntity);
+			
+			return ResponseFactory.Ok(result);
 		}
 		catch (Exception ex)
 		{

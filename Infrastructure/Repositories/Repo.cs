@@ -92,7 +92,7 @@ namespace Infrastructure.Repositories
 				{
                     return ResponseFactory.Ok(entity);
                 }
-				return null!;
+				return ResponseFactory.NotFound();
 
 			}
 			catch (Exception ex)
@@ -125,21 +125,21 @@ namespace Infrastructure.Repositories
 		{
 			try
 			{
-				var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
-				if (entity == null)
+				var entities = await _context.Set<TEntity>().Where(predicate).ToListAsync();
+				if (entities.Count == 0)
 				{
 					return ResponseFactory.NotFound();
 				}
 
-				_context.Set<TEntity>().Remove(entity);
+				_context.Set<TEntity>().RemoveRange(entities);
 				await _context.SaveChangesAsync();
 
 				return ResponseFactory.Ok("Successfully removed!");
 			}
 			catch (Exception ex)
 			{
-                return ResponseFactory.Error(ex.Message);
-            }
+				return ResponseFactory.Error(ex.Message);
+			}
 		}
 				
 		public virtual async Task<ResponseResult> ExistsAsync(Expression<Func<TEntity, bool>> predicate)

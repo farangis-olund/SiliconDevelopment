@@ -19,6 +19,8 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddScoped<SubscriptionRepository>();
 builder.Services.AddScoped<SubscriptionService>();
 builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<AuthorRepository>();
+builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<CourseService>();
 
 var app = builder.Build();

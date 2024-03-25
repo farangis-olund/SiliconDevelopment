@@ -68,11 +68,17 @@
                 color: $theme;
             }
 
-            span {
+            .red {
+                color: $danger;
+            }
+
+            .gray {
+                display: inline-block;
                 color: $gray-600;
                 font-weight: 400;
                 font-size: 22px;
                 text-decoration: line-through;
+                padding-left: 7px;
             }
         }
 
@@ -81,12 +87,17 @@
             gap: 25px;
 
             .duration {
+               
                 i {
                     padding-right: 7px;
                 }
             }
 
             .rating {
+                p {
+                    margin: 0;
+                }
+
                 i {
                     font-size: 20px;
                 }

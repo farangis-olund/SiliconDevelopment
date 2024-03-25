@@ -6,16 +6,10 @@ using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels;
 
 namespace Presentation.WebApp.Services;
-public class ApiCourseService
+public class ApiCourseService(CategoryService categoryService, HttpClient httpClient)
 {
-	private readonly CategoryService _categoryService;
-	private readonly HttpClient _http;
-
-	public ApiCourseService(CategoryService categoryService, HttpClient httpClient)
-	{
-		_categoryService = categoryService;
-		_http = httpClient;
-	}
+	private readonly CategoryService _categoryService = categoryService;
+	private readonly HttpClient _http = httpClient;
 
 	public async Task<CoursesViewModel> PopulateAllCoursesAsync()
 	{
@@ -36,6 +30,7 @@ public class ApiCourseService
 		{
 			var courseEntities = JsonConvert.DeserializeObject<List<CourseEntity>>(data.ContentResult!.ToString()!);
 			viewModel.Courses = courseEntities!.Select(MapToCourseModel).ToList();
+
 		}
 		return viewModel;
 	}
@@ -53,7 +48,6 @@ public class ApiCourseService
 			var courseEntity = JsonConvert.DeserializeObject<CourseEntity>(data.ContentResult!.ToString()!);
 			viewModel = MapToCourseModel(courseEntity!);
 		}
-
 		return viewModel;
 	}
 
@@ -66,10 +60,12 @@ public class ApiCourseService
 			Description = entity.Description,
 			AuthorName = entity.Author.AuthorName,
 			Price = entity.Price,
+			DiscountPrice = entity.DiscountPrice,
 			Duration = (double)entity.Duration!,
 			Ingress = entity.Ingress,
-			ProgramDetails = entity.ProgramDetails,
-			DownloadedResourses = entity.DownloadedResourses,
+			ProgramGoals = entity.ProgramGoals,
+            ProgramDetails = entity.ProgramDetails,
+            DownloadedResourses = entity.DownloadedResourses,
 			ArticleCount = entity.ArticleCount,
 			ReviewsCount = entity.ReviewsCount,
 			LikeCount = entity.LikeCount,

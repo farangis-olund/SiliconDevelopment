@@ -3,6 +3,7 @@
 
         .heading {
             padding-top: 20px;
+            padding-bottom: 20px;
             display: block;
 
             @include lg {
@@ -58,7 +59,7 @@
             padding-top: 50px;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem 1.7rem;
+            gap: 2.5rem 1.7rem;
 
             @include lg {
                 grid-template-columns: 1fr 1fr;
@@ -67,7 +68,6 @@
             @include xl {
                 grid-template-columns: 1fr 1fr 1fr;
             }
-
         }
 
         .pagination {

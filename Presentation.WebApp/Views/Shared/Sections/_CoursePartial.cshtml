@@ -1,41 +1,64 @@
-﻿@model CoursesViewModel
-@foreach (var course in Model.Courses)
-{
-	<div class="course-item">
-		<div class="image-container">
-			<img src="~/images/courses/fullstack-web-developer.svg" />
-			<button class="btn-sell" type="submit"><i class=" fa-regular fa-bookmark"></i></button>
-			@if(course.BestSeller == true)
-			{
-				<div class="badge">Best Seller</div>
-			}
-		</div>
+﻿@model CoursesViewModel 
+@{
+	if(Model != null)
+	{
+		foreach (var course in Model.Courses)
+		{
+			<div class="course-item">
+				<div class="image-container">
+					<img src="~/images/courses/@course.ImgUrl"/>
 
-		<div class="info">
-			<a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a>
-			<p>By @course.AuthorName</p>
-			<div class="price">
-				<p>$
-					@if (course.DiscountPrice != null)
+					@if (ViewContext.RouteData.Values["controller"]!.ToString() == "Account")
 					{
-						@course.DiscountPrice <span>$@course.Price</span>
-					}else
-					{
-						@course.Price
+						<!-- Delete course button -->
+						<form asp-controller="Account" asp-action="DeleteCourse" method="post">
+							<input asp-for="@course.Id" name="id" type="hidden" value="@course.Id" />
+							<button class="btn-sell" type="submit"><i class="fa-solid fa-bookmark"></i></button>
+						</form>
 					}
-				</p>
-			</div>
+					else if (ViewContext.RouteData.Values["controller"]!.ToString() == "Courses")
+					{
+						<!-- Add course button -->
+						<form asp-controller="Courses" asp-action="Join" method="post">
+							<input asp-for="@course.Id" name="id" type="hidden" value="@course.Id" />
+							<button class="btn-sell" type="submit"><i class="fa-regular fa-bookmark"></i></button>
+						</form>
+					}
+					
+					
+					@if(course.BestSeller == true)
+					{
+						<div class="badge">Best Seller</div>
+					}
+				</div>
 
-			<hr />
-			<div class="duration-rating">
-				<div class="duration"><i class="fa-regular fa-clock"></i> @course.Duration hours</div>
-				<div class="rating">
-					<i class="fa-sharp fa-light fa-thumbs-up"></i>
-					<p>94%</p>
-					<p>(@FormatReviews.Reviews((int)course.ReviewsCount!))</p>
+				<div class="info">
+					<a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a>
+					<p>By @course.AuthorName</p>
+					<div class="price">
+						@if (course.DiscountPrice == 0)
+						{
+							<p>$@course.Price</p>
+						}else
+						{
+							<p><span class="red">$@course.DiscountPrice</span> <span class="gray">$@course.Price</span></p>
+						}
+						
+					</div>
+
+					<hr />
+					<div class="duration-rating">
+						<div class="duration"><i class="fa-regular fa-clock"></i> @course.Duration hours</div>
+						<div class="rating">
+							<i class="fa-sharp fa-light fa-thumbs-up"></i>
+							<p>94%</p>
+							<p>(@FormatReviews.Reviews((int)course.ReviewsCount!))</p>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 	
+		}
+
+	}
 }

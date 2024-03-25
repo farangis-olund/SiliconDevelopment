@@ -49,79 +49,84 @@
             }
         }
 
-        .checkbox-container {
-            display: grid;
-            padding: 20px;
-            text-align: center;
-
-            @include lg {
-                padding: 40px 0;
-                display: flex;
-                justify-content: flex-start;
-                align-items: flex-start;
-                text-align: left;
-                gap: 40px;
-            }
-
-            h5 {
-                flex: 0.5;
-            }
-
-            .checkboxes {
+        form {
+            .checkbox-container {
                 display: grid;
-                justify-content: center;
-                gap: 20px;
-
-                @include md {
-                    grid-template-columns: 1fr 1fr;
-                    justify-content: left;
-                    gap: 10px 60px;
-                }
-
-                @include xl {
-                    grid-template-columns: 1fr 1fr 1fr;
-                }
-
-                .checkbox {
-                    display: flex;
-
-                    input[type="checkbox"] {
-                        transform: scale(1.5);
-                        color: $gray-100;
-                        margin-right: 12px;
-                    }
-
-                    :checked {
-                        accent-color: $theme;
-                    }
-                }
-            }
-        }
-
-        .inputbox-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-
-            @include lg {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
-            .inputgroup {
-               i {
-                   left: 15px;                
-                }
-            }
-
-            .button {
+                padding: 20px;
+                text-align: center;
 
                 @include lg {
+                    padding: 40px 0;
                     display: flex;
-                    height: 100%;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    text-align: left;
+                    gap: 40px;
+                }
+
+                h5 {
+                    flex: 0.5;
+                }
+
+                .checkboxes {
+                    display: grid;
+                    justify-content: center;
+                    gap: 20px;
+
+                    @include md {
+                        grid-template-columns: 1fr 1fr;
+                        justify-content: left;
+                        gap: 10px 60px;
+                    }
+
+                    @include xl {
+                        grid-template-columns: 1fr 1fr 1fr;
+                    }
+
+                    .checkbox {
+                        display: flex;
+
+                        input[type="checkbox"] {
+                            transform: scale(1.5);
+                            color: $gray-100;
+                            margin-right: 12px;
+                        }
+
+                        :checked {
+                            accent-color: $theme;
+                        }
+                    }
+                }
+            }
+
+            .inputbox-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                @include lg {
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+
+                .inputgroup {
+                    i {
+                        left: 15px;
+                    }
+                }
+
+                .button {
+
+                    @include lg {
+                        display: flex;
+                        height: 100%;
+                    }
                 }
             }
         }
+
+
+
 
         p {
             padding-top: 20px;

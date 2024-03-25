@@ -7,12 +7,14 @@
 @if (content != null)
 {
      <section class="subscribe">
-            <div class="container">
-                <div class="title">
-                    <h1>@content.Title</h1>
-                    <img class="decorArrows" src="images/decorArrows.svg" alt="decor">
-                </div>
-                
+        
+        <div class="container">
+            <div class="title">
+                <h1>@content.Title</h1>
+                <img class="decorArrows" src="images/decorArrows.svg" alt="decor">
+            </div>
+            <partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
+            <form  asp-controller="Home" asp-action="Subscribe" method="Post">
                 <div class="checkbox-container">
                     <h5>@content.Description</h5>
                     <div class="checkboxes">
@@ -23,26 +25,30 @@
                             var formattedString = string.Join("", words.Select(word => char.ToUpper(word[0]) + word.Substring(1)));
 
                             <div class="checkbox">
-                                <input type="checkbox" id="formattedString">
+                                <input type="checkbox" name="checkboxValues" value="@checkbox.Trim()">
                                 <label for="formattedString">@checkbox.Trim()</label>
                             </div>
                         }
 
                     </div>
                 </div>
+
                 <div class="inputbox-container">
-                     <div class="inputgroup">
-                        <input type="text" placeholder="Your Email">
+                    <div class="inputgroup">
+                        <input name="email" type="text" placeholder="Your Email">
                         <i class="fa-sharp fa-light fa-envelope"></i>
                     </div>
-                                                         
+
                     <div class="button">
-                        <a class="btn-theme-s" href="#">Subscribe *</a>
+                        <button type="submit" class="btn-theme-s" href="#">Subscribe *</button>
                     </div>
                 </div>
-                <p><span class="asterisk">*</span> Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</p>
+                
+            
+            </form>
+            <p><span class="asterisk">*</span> Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</p>
 
-            </div>
+         </div>
 
-        </section>
+     </section>
 }
