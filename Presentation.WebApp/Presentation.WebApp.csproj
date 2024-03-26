@@ -23,7 +23,7 @@
     <None Include="wwwroot\css\scss\components\_buttons.scss" />
     <None Include="wwwroot\css\scss\components\_links.scss" />
     <None Include="wwwroot\css\scss\core\_base.scss" />
-    <None Include="wwwroot\css\scss\core\_colors.scss" />
+    <None Include="wwwroot\css\scss\core\_mixin.scss" />
     <None Include="wwwroot\css\scss\core\_media.scss" />
     <None Include="wwwroot\css\scss\core\_typography.scss" />
     <None Include="wwwroot\css\scss\sections\_downloadApp.scss" />

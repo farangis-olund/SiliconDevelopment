@@ -1,5 +1,5 @@
 .subscribe {
-    background-color: $gray-100;
+    background-color: var(--color-gray-100);
 
     .container {
         text-align: center;
@@ -88,12 +88,12 @@
 
                         input[type="checkbox"] {
                             transform: scale(1.5);
-                            color: $gray-100;
+                            color: var(--color-gray-100);
                             margin-right: 12px;
                         }
 
                         :checked {
-                            accent-color: $theme;
+                            accent-color: var(--color-theme);
                         }
                     }
                 }
@@ -133,7 +133,7 @@
         }
 
         .asterisk {
-            color: $theme;
+            color: var(--color-theme);
         }
     }
 }

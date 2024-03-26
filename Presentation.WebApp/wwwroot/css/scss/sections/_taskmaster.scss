@@ -42,12 +42,12 @@
                 padding: 0;
 
                 li {
-                    color: $gray-700;
+                    color: var(--color-gray-700);
                     padding-bottom: 15px;
                 }
 
                 i {
-                    color: $theme;
+                    color: var(--color-theme);
                     padding-right: 10px;
                 }
             }

@@ -1,6 +1,8 @@
 html, body {
     @include standard-text;
-    font-size: 16px; 
+    font-size: 16px;
+    background-color: var(--color-gray-000);
+  
 }
 
 .text-xs { @include text-xs; }
@@ -28,4 +30,18 @@ h6, .h6 { @include h6; }
     height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

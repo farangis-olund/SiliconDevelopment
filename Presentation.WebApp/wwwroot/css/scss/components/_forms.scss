@@ -2,7 +2,8 @@
     width: 100%;
     display: grid;
     gap: 1rem;
-
+   
+    
     .input-group {
         display: grid;
     }
@@ -16,14 +17,14 @@
                 top: 0;
                 right: 0;
                 @include text-s;
-                color: $danger;
+                color: var(--color-danger);
             }
         }
     }
 
     .checkbox-group {
         position: relative;
-       
+
         .input-group {
             display: flex;
             justify-content: flex-start;
@@ -33,14 +34,14 @@
             input[type="checkbox"] {
                 height: 1.2rem;
                 width: 1.2rem;
-                
+
                 &.input-validation-error {
                     position: relative;
-                    box-shadow: 0 0 0 0.063rem $danger;
-                    color: $danger;
+                    box-shadow: 0 0 0 0.063rem var(--color-danger);
+                    color: var(--color-danger);
 
                     &::placeholder {
-                        color: $danger;
+                        color: var(--color-danger);
                     }
                 }
             }
@@ -60,7 +61,7 @@
     input {
         padding: 1rem;
         border-radius: 0.5rem !important;
-        border: 0.063rem solid $gray-400;
+        border: 0.063rem solid var(--color-gray-400);
 
         &::placeholder {
             opacity: 0.4;
@@ -68,24 +69,24 @@
 
         &.input-validation-error {
             position: relative;
-            border: 0.063rem solid $danger !important;
-            color: $danger;
+            border: 0.063rem solid var(--color-danger) !important;
+            color: var(--color-danger);
 
             &::placeholder {
-                color: $danger;
+                color: var(--color-danger);
             }
         }
 
         &:focus {
             outline: none;
-            border: 0.063rem solid $gray-600
+            border: 0.063rem solid var(--color-gray-600);
         }
     }
 
     textarea {
         padding: 1rem;
         border-radius: 0.5rem !important;
-        border: 0.063rem solid $gray-400;
+        border: 0.063rem solid var(--color-gray-400);
         resize: none;
 
         &::placeholder {
@@ -93,11 +94,11 @@
         }
 
         &.input-validation-error {
-            border: 0.063rem solid $danger !important;
-            color: $danger;
+            border: 0.063rem solid var(--color-danger) !important;
+            color: var(--color-danger);
 
-            &::paceholder {
-                color: $danger;
+            &::placeholder {
+                color: var(--color-danger);
             }
         }
     }
@@ -108,9 +109,7 @@
             top: 0;
             right: 0;
             @include text-s;
-            color: $danger;
-
-           
+            color: var(--color-danger);
         }
     }
 }

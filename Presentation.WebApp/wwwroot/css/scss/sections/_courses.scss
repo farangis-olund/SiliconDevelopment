@@ -41,7 +41,7 @@
 
                 i {
                     right: 15px;
-                    color: $gray-700;
+                    color: var(--color-gray);
                 }
             }
 
@@ -94,11 +94,12 @@
         }
 
         .page-link:hover {
-            background-color: $gray-100;
+            background-color: var(--color-gray-200);
+            color: var(--color-gray-800)
         }
 
         .page-item.disabled .page-link {
-            color: #ccc;
+            color: var(--color-gray-300);
             background-color: transparent;
             pointer-events: none;
         }
@@ -124,14 +125,14 @@
         }
 
         .page-item.active .page-link {
-            background-color: $theme;
-            color: #fff;
+            background-color: var(--color-theme);
+            color: var(--color-white);
         }
 
         .work-with-us {
             border-radius: 6px;
             padding-top: 40px;
-            background-color: $gray-100;
+            background-color: var(--color-gray-200);
             display: block;
             justify-content: center;
             align-content: center;
@@ -164,7 +165,7 @@
 
                 h5 {
                     font-weight: 400;
-                    color: $gray-700;
+                    color: var(--color-gray-700);
                 }
 
                 h1 {
@@ -172,7 +173,7 @@
                 }
 
                 span {
-                    color: $theme;
+                    color: var(--color-theme);
                 }
             }
         }

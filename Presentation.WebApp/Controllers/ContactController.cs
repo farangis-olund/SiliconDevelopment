@@ -1,25 +1,28 @@
 ﻿using Infrastructure.Dtos;
+using Infrastructure.Entities;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.ViewModels;
 
 namespace Presentation.WebApp.Controllers;
 
-public class ContactController : Controller
+public class ContactController(ServiceRepository serviceRepository) : Controller
 {
-    [HttpGet]
-    [Route("/contact")]
-    public IActionResult Index()
-    {
-        var viewModel = new ContactViewModel
+    private readonly ServiceRepository _serviceRepository = serviceRepository;
+
+	[HttpGet]
+	[Route("/contact")]
+	public async Task<IActionResult> Index()
+	{
+		var viewModel = new ContactViewModel();
+		var response = await _serviceRepository.GetAllAsync();
+
+		if (response.StatusCode == Infrastructure.Models.StatusCode.Ok)
 		{
-			Services =
-		[
-			new Service { Id = 1, Name = "Service 1" },
-			new Service { Id = 2, Name = "Service 2" },
-			new Service { Id = 3, Name = "Service 3" },
-		]
-		};
+			viewModel.Services = (List<ServiceEntity>)response.ContentResult!;
+		}
+		
 
 		return View(viewModel);
-    }
+	}
 }

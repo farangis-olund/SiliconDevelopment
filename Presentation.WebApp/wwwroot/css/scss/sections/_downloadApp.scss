@@ -1,9 +1,9 @@
 #downloadApp {
-    background-color: $gray-100;
+    background-color: var(--color-gray-100);
 
     .container {
         padding: 20px;
-        background-color: $gray-200;
+        background-color: var(--color-gray-200);
         display: grid;
         gap: 30px;
 
@@ -60,16 +60,16 @@
                     }
 
                     .title {
-                        color: $gray-600;
+                        color: var(--color-gray-600);
                         margin: 0;
                     }
 
                     .stars {
-                        color: $warning;
+                        color: var(--color-warning);
                     }
 
                     .rate {
-                        color: $gray-700;
+                        color: var(--color-gray-700);
                         margin: 0;
                     }
                 }

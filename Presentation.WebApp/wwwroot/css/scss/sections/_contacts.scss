@@ -1,10 +1,10 @@
 ﻿
 .contacts {
     header {
-        background-color: $gray-100;
+        background-color: var(--color-gray-100);
     }
 
-    background-color: $gray-100;
+    background-color: var(--color-gray-100);
     position: relative;
 
     .container {
@@ -44,10 +44,10 @@
                         width: 250px;
 
                         .arrow-link {
-                            color: $theme;
+                            color: var(--color-theme);
 
                             &:hover {
-                                color: $theme-secondary;
+                                color: var(--color-theme-secondary);
                             }
                         }
                     }
@@ -57,30 +57,34 @@
                         border-radius: 50%;
                         width: 50px;
                         height: 50px;
-                        background-color: $white;
+                        background-color: var(--color-white);
 
                         i {
                             position: absolute;
                             padding-left: 15px;
                             padding-top: 15px;
                             font-size: 18px;
-                            color: $theme;
+                            color: var(--color-theme);
                         }
                     }
                 }
             }
 
             form {
-                background-color: $white;
+                background-color: var(--color-white);
                 border-radius: 10px;
                 position: static;
                 width: 100%;
                 padding: 30px;
                 height: auto;
+                color: var(--color-black);
+
+                h2 {
+                    color: var(--color-black);
+                }
 
                 @include md {
                     padding: 20px 30px;
-           
                 }
 
                 @include lg {
@@ -93,7 +97,7 @@
 
                 .input-group {
                     span {
-                        color: $gray-500;
+                        color: var(--color-gray-500);
                     }
 
 
@@ -103,13 +107,13 @@
                             padding: 15px 25px 15px 15px;
 
                             .color-gray {
-                                color: $gray-200;
+                                color: var(--color-gray-200);
                             }
                         }
 
                         i {
                             right: 15px;
-                            color: $gray-800;
+                            color: var(--color-black);
                         }
                     }
                 }

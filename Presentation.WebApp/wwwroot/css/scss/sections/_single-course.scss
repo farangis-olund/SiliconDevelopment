@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 
     .overlay {
         background-color: rgba(0, 0, 0, 0.7);
@@ -16,7 +17,7 @@
             width: 100%;
             left: 0;
             top: 0;
-            z-index: -1;
+            z-index: -2;
             height: auto;
             max-height: 677px;
             object-fit: cover;
@@ -25,11 +26,11 @@
 
     .container {
         padding: 20px;
-        color: $gray-800;
+        color: var(--color-gray-800);
         z-index: 2;
 
         @include xl {
-            color: $gray-400;
+            color: var(--color-gray-400);
         }
 
         header {
@@ -43,7 +44,7 @@
             }
 
             nav, a.active {
-                color: $white;
+                color: var(--color-white);
             }
 
             .button-group {
@@ -52,8 +53,8 @@
                 padding: 30px 0px;
 
                 .best-seller {
-                    background-color: $success;
-                    color: $white;
+                    background-color: var(--color-success-dark);
+                    color: var(--color-white);
                     border-radius: 4px;
                     border: none;
                     padding: 0.1rem 0.5rem;
@@ -82,18 +83,18 @@
 
                 p {
                     margin: 0;
-                    color: $gray-800;
+                    color: var(--color-gray-800);
 
                     @include lg {
-                        color: $gray-400;
+                        color: var(--color-gray-400);
                     }
                 }
 
                 .stars {
-                    color: $warning;
+                    color: var(--color-warning);
 
                     .not-active {
-                        color: $gray-400;
+                        color: var(--color-gray-400);
                     }
                 }
 
@@ -102,7 +103,7 @@
                 }
 
                 span {
-                    color: $gray-400;
+                    color: var(--color-gray-400);
                     display: block;
 
                     @include md {
@@ -123,18 +124,18 @@
 
                 p {
                     margin: 0;
-                    color: $gray-800;
+                    color: var(--color-gray-800);
 
                     @include lg {
-                        color: $gray-400;
+                        color: var(--color-gray-400);
                     }
                 }
 
                 h6 {
-                    color: $gray-800;
+                    color: var(--color-gray-800);
 
                     @include md {
-                        color: $white;
+                        color: var(--color-white);
                     }
 
                     margin: 0;
@@ -142,30 +143,30 @@
             }
 
             h1 {
-                color: $gray-800;
+                color: var(--color-gray-800);
                 @include h4;
 
                 @include md {
-                    color: $white;
+                    color: var(--color-white);
                 }
 
                 @include xxl {
                     @include h1;
-                    color: $white;
+                    color: var(--color-white);
                 }
             }
 
             p {
-                color: $gray-800;
+                color: var(--color-gray-800);
 
                 @include md {
-                    color: $gray-400;
+                    color: var(--color-gray-400);
                 }
             }
         }
 
         h2 {
-            color: $gray-800;
+            color: var(--color-gray-800);
         }
 
         span {
@@ -188,7 +189,7 @@
             }
 
             p {
-                color: $gray-800;
+                color: var(--color-gray-800);
             }
 
             .description {
@@ -200,7 +201,7 @@
 
 
                 i {
-                    color: $theme;
+                    color: var(--color-theme);
                     padding-right: 5px;
                 }
             }
@@ -208,7 +209,7 @@
             .info-card {
                 flex: 1;
                 padding: 40px;
-                border: 1px solid $gray-300;
+                border: 1px solid var(--color-gray-300);
                 border-radius: 5px;
                 height: auto;
 
@@ -217,7 +218,7 @@
                 }
 
                 span {
-                    color: $gray-600;
+                    color: var(--color-gray-600);
                     font-weight: 400;
                     font-size: 24px;
                     text-decoration: line-through;
@@ -231,7 +232,6 @@
 
                 form {
                     display: inline-block !important;
-
                 }
             }
         }
@@ -239,7 +239,7 @@
         .program-detail {
             padding-top: 80px;
             padding-bottom: 80px;
-            color: $gray-700;
+            color: var(--color-gray-700);
 
             .step-container {
 
@@ -253,9 +253,10 @@
                         display: flex;
                         justify-content: center;
                         position: relative;
-                        background-color: $white;
+                        background-color: var(--color-white);
                         width: 70px;
                         height: 70px;
+                        color: var(--color-black);
 
                         @include lg {
                             width: 85px;
@@ -263,7 +264,7 @@
                         }
 
                         border-radius: 50%;
-                        border: 13px solid $gray-200;
+                        border: 13px solid var(--color-gray-200);
                         @include theme-secondary-shadow;
                     }
 
@@ -278,7 +279,7 @@
 
                     h2 {
                         position: absolute;
-                        color: $gray-900;
+                        color: var(--color-black);
                         font-size: 15px;
                     }
 
@@ -289,7 +290,7 @@
                         transform: translateX(-50%);
                         width: 1px;
                         height: 100%;
-                        background-color: $gray-400;
+                        background-color: var(--color-gray-400);
 
                         @include lg {
                             left: 42px;
@@ -320,10 +321,10 @@
             }
 
             p {
-                color: $gray-500;
+                color: var(--color-gray-500);
             }
 
-            background-color: #0B0F19;
+            background-color: var(--color-black);
 
             .text-block {
                 padding: 30px;
@@ -331,7 +332,7 @@
                 z-index: 2;
 
                 h1 {
-                    color: $white !important;
+                    color: var(--color-white) !important;
 
                     @include h3;
 
@@ -395,7 +396,7 @@
             }
 
             .btn-gray {
-                color: $white;
+                color: var(--color-white);
                 background-color: #4C82F7;
                 z-index: 3;
 

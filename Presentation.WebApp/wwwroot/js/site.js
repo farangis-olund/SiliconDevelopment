@@ -1,5 +1,4 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-   
     const mobileButton = document.querySelector('.btn-mobile');
     const mobileMenu = document.getElementById('menu');
     const mobileAccountButtons = document.querySelector('.account-buttons');
@@ -10,6 +9,7 @@
         mobileAccountButtons.classList.remove('show-buttons');
         menuOverlay.classList.remove('show-overlay');
     };
+
     mobileButton.addEventListener('click', function () {
         mobileMenu.classList.toggle('show-menu');
         mobileAccountButtons.classList.toggle('show-buttons');
@@ -25,19 +25,34 @@
     accountButtons.forEach(button => {
         button.addEventListener('click', hideMenuAndOverlay);
     });
+
+    const checkScreenSize = () => {
+        if (window.innerWidth >= 1200) {
+            hideMenuAndOverlay();
+        } else {
+           
+        }
+    };
+
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
 });
 
-
-const checkScreenSize = () => {
-    if (window.innerWidth >= 1200) {
-        hideMenuAndOverlay(); 
-    } else {
-        //mobileMenu.classList.remove('show-menu');
-        //if (!mobileAccountButtons.classList.contains('hide')) {
-        //    mobileAccountButtons.classList.add('hide');
-        //}
-    }
-};
-
-window.addEventListener('resize', checkScreenSize);
-checkScreenSize();
+document.addEventListener('DOMContentLoaded', function () {
+    let sm = document.querySelector('#switch-mode');
+    console.log(sm)
+    sm.addEventListener('change', function () {
+        let theme = this.checked ? "dark" : "light";
+        fetch(`/settings/changetheme?theme=${theme}`)
+            .then(res => {
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to change theme:', res.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error changing theme:', error);
+            });
+    });
+});

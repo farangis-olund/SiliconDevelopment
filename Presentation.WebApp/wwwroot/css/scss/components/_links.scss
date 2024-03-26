@@ -1,6 +1,6 @@
 a {
     @include standard-text;
-    color: $theme;
+    color: var(--color-theme);
     text-decoration: underline;
     transition: all 0.25s ease-in-out;
 
@@ -13,14 +13,13 @@ a {
     @include text-nav;
     text-decoration: none;
     transition: color 0.25s ease-in-out;
-    
+
     &:hover,
     &:active,
     &:focus,
     .active {
-        color: $theme;
+        color: var(--color-theme);
         text-decoration: underline;
-
     }
 }
 
@@ -35,14 +34,14 @@ a {
 
 .more-link {
     @include text-s;
-    display:flex;
+    display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none !important;
 
     i {
         @include shadow-s;
-        background: $white;
+        background: var(--color-white);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -50,14 +49,15 @@ a {
         border-radius: 50%;
         transition: all 0.1s ease-in-out;
     }
+
     &:hover {
         span {
             text-decoration: underline;
         }
 
         i {
-            background: $gray-800;
-            color: $white;
+            background: var(--color-gray-800);
+            color: var(--color-white);
         }
     }
 }

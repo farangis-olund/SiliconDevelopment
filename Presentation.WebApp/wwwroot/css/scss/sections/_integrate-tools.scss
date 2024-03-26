@@ -16,7 +16,7 @@
         }
 
         #sub-title {
-            color: $gray-600;
+            color: var(--color-gray-600);
 
             @include xl {
                 margin: 0 300px;
@@ -40,9 +40,10 @@
 
             .tool {
                 padding: 20px;
+
                 p {
                     padding-top: 10px;
-                    color: $gray-700;
+                    color: var(--color-gray-700);
                 }
             }
         }

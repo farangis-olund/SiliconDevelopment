@@ -26,6 +26,7 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserCourseRepository>();
 builder.Services.AddScoped<AddressRepository>();
 builder.Services.AddScoped<AuthorRepository>();
+builder.Services.AddScoped<ServiceRepository>();
 
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<CourseRepository>();

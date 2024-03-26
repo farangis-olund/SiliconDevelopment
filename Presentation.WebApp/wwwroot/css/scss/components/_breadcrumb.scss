@@ -6,7 +6,7 @@
 
     a {
         font-size: 16px;
-        color: $gray-600;
+        color: var(--color-gray-600);
         text-decoration: none;
         font-weight: 300;
     }
@@ -16,12 +16,12 @@
     }
 
     .fa-house {
-        color: $gray-600;
+        color: var(--color-gray-600);
         padding-right: 5px;
         font-size: 16px;
     }
 
     .active {
-        color: $theme;
+        color: var(--color-theme);
     }
 }
