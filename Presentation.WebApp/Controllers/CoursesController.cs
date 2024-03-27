@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Services;
 using Presentation.WebApp.ViewModels;
+using Infrastructure.Models;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -19,12 +20,14 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
 	[Route("/courses")]
 	public async Task<IActionResult> Index(string? statusMessage)
 	{
+       
 		if (!string.IsNullOrEmpty(statusMessage))
         {
             ViewData["StatusMessage"] = statusMessage;
         }
-        var viewModel = await _apiCourseService.PopulateAllCoursesAsync();
 
+		var viewModel = await _apiCourseService.PopulateAllCoursesAsync();
+		
 		return View(viewModel);
 	}
 
@@ -40,8 +43,8 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
     [HttpGet("/course")]
     public async Task<IActionResult> SingleCourse(int id)
     {
-		var viewModel= await _apiCourseService.PopulateOneCourseAsync(id);
-	
+		var	viewModel = await _apiCourseService.PopulateOneCourseAsync(id);
+			
 		return View(viewModel);
     }
 
@@ -63,6 +66,7 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
         };
         
         return RedirectToAction("Index" , new { statusMessage } );
+
     }
 
     #endregion

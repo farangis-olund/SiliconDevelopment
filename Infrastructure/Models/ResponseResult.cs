@@ -7,6 +7,7 @@ public enum StatusCode
     Error = 400,
     NotFound = 404,
     Exists = 409,
+    Unauthorized = 401
 }
 public class ResponseResult
 {

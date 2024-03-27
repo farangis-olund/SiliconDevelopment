@@ -14,7 +14,7 @@
   --color-white: #FFFFFF;
   --color-gray: #B4B7C9;
   --color-black: #000000;
-  --color-danger-dark: #e57e88;
+  --color-danger-dark: #D10000;
   --color-danger: #f5d7da;
   --color-success: #bcf7d2;
   --color-success-dark: #22C55E;
@@ -575,11 +575,11 @@ form .checkbox-group .input-group input[type=checkbox] {
 }
 form .checkbox-group .input-group input[type=checkbox].input-validation-error {
   position: relative;
-  box-shadow: 0 0 0 0.063rem var(--color-danger);
-  color: var(--color-danger);
+  box-shadow: 0 0 0 0.063rem var(--color-danger-dark);
+  color: var(--color-danger-dark);
 }
 form .checkbox-group .input-group input[type=checkbox].input-validation-error::placeholder {
-  color: var(--color-danger);
+  color: var(--color-danger-dark);
 }
 form .checkbox-group .input-group label {
   margin: 0;
@@ -599,11 +599,11 @@ form input::placeholder {
 }
 form input.input-validation-error {
   position: relative;
-  border: 0.063rem solid var(--color-danger) !important;
-  color: var(--color-danger);
+  border: 0.063rem solid var(--color-danger-dark) !important;
+  color: var(--color-danger-dark);
 }
 form input.input-validation-error::placeholder {
-  color: var(--color-danger);
+  color: var(--color-danger-dark);
 }
 form input:focus {
   outline: none;
@@ -619,11 +619,11 @@ form textarea::placeholder {
   opacity: 0.4;
 }
 form textarea.input-validation-error {
-  border: 0.063rem solid var(--color-danger) !important;
-  color: var(--color-danger);
+  border: 0.063rem solid var(--color-danger-dark) !important;
+  color: var(--color-danger-dark);
 }
 form textarea.input-validation-error::placeholder {
-  color: var(--color-danger);
+  color: var(--color-danger-dark);
 }
 form span.field-validation-error {
   position: absolute;
@@ -634,7 +634,7 @@ form span.field-validation-error {
   color: var(--color-gray-700);
   font-family: "Manrope", sans-serif;
   font-size: 14px !important;
-  color: var(--color-danger);
+  color: var(--color-danger-dark);
 }
 
 aside {
@@ -826,7 +826,7 @@ aside nav .btn-theme-s {
   color: var(--color-theme);
 }
 .course-item .info .price .red {
-  color: var(--color-danger);
+  color: var(--color-danger-dark);
 }
 .course-item .info .price .gray {
   display: inline-block;
@@ -889,17 +889,17 @@ aside nav .btn-theme-s {
 
 .alert-success {
   background-color: var(--color-success);
-  color: var(--color-gray-800);
+  color: var(--color-black);
 }
 
 .alert-warning {
   background-color: var(--color-warning);
-  color: var(--color-gray-800);
+  color: var(--color-black);
 }
 
 .alert-danger {
   background-color: var(--color-danger);
-  color: var(--color-gray-800);
+  color: var(--color-black);
 }
 
 .contact-header {
@@ -2646,12 +2646,12 @@ footer .container .copyright span {
 }
 #saved-courses .details .title-bar form .btn-gray {
   background-color: transparent;
-  border: 1px solid var(--color-danger);
-  color: var(--color-danger);
+  border: 1px solid var(--color-danger-dark);
+  color: var(--color-danger-dark);
   display: inline-flex;
 }
 #saved-courses .details .title-bar form .btn-gray:hover {
-  background-color: var(--color-danger);
+  background-color: var(--color-danger-dark);
   color: var(--color-white);
 }
 #saved-courses .details .title-bar h2 {
@@ -2704,7 +2704,7 @@ footer .container .copyright span {
   top: 15px;
   left: 13px;
   z-index: 2;
-  background-color: var(--color-success);
+  background-color: var(--color-success-dark);
   padding: 5px 12px;
   font-size: 15px;
   font-weight: 400;

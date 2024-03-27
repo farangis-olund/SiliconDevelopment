@@ -1,16 +1,21 @@
 ﻿using Infrastructure.Models;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[UseApiKey]
+[Authorize]
 public class CourseController (CourseService courseService) : ControllerBase
 {
 	private readonly CourseService _courseService = courseService;
 
 	#region Create
+	
 	[HttpPost("/api/course")]
 	public async Task<IActionResult> Create(CourseRegistrationModel model)
 	{
@@ -49,7 +54,8 @@ public class CourseController (CourseService courseService) : ControllerBase
 			return result.StatusCode switch
 			{
 				Infrastructure.Models.StatusCode.Ok => Ok(result.ContentResult),
-				Infrastructure.Models.StatusCode.NotFound => NotFound("Not found any subscription."),
+				Infrastructure.Models.StatusCode.NotFound => NotFound("Not found any courses."),
+				Infrastructure.Models.StatusCode.Unauthorized => Unauthorized("You are unauthorized to get courses!"),
 				_ => BadRequest("An unexpected error occurred."),
 			};
 		}
@@ -70,8 +76,9 @@ public class CourseController (CourseService courseService) : ControllerBase
 			return result.StatusCode switch
 			{
 				Infrastructure.Models.StatusCode.Ok => Ok(result.ContentResult),
-				Infrastructure.Models.StatusCode.NotFound => NotFound("Not found any subscription."),
-				_ => BadRequest("An unexpected error occurred."),
+				Infrastructure.Models.StatusCode.NotFound => NotFound("Not found any course."),
+				Infrastructure.Models.StatusCode.Unauthorized => Unauthorized("You are unauthorized to get course!"),
+				_ => BadRequest("An unexpected error occurred.")
 			};
 		}
 		catch (Exception ex)
@@ -83,7 +90,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 	#endregion
 
 	#region Update
-	[HttpPut("/api/course {id}")]
+	[HttpPut("/api/course/{id}")]
 	public async Task<IActionResult> UpdateOne(int id, CourseModel model)
 	{
 		try
@@ -99,6 +106,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 			{
 				Infrastructure.Models.StatusCode.Ok => Ok("Subscription updated successfully!"),
 				Infrastructure.Models.StatusCode.NotFound => NotFound("Subscription does not exist."),
+				Infrastructure.Models.StatusCode.Unauthorized => Unauthorized("You are unauthorized to update!"),
 				_ => BadRequest("An unexpected error occurred."),
 			};
 		}
@@ -110,7 +118,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 	#endregion
 
 	#region Delete
-	[HttpDelete("/api/course {id}")]
+	[HttpDelete("/api/course/{id}")]
 	public async Task<IActionResult> DeleteOne(int id)
 	{
 		try
@@ -124,8 +132,9 @@ public class CourseController (CourseService courseService) : ControllerBase
 
 			return result.StatusCode switch
 			{
-				Infrastructure.Models.StatusCode.Ok => Ok("Subscription deleted successfully!"),
-				Infrastructure.Models.StatusCode.NotFound => NotFound("Subscription does not exist."),
+				Infrastructure.Models.StatusCode.Ok => Ok("Course deleted successfully!"),
+				Infrastructure.Models.StatusCode.NotFound => NotFound("Course does not exist."),
+				Infrastructure.Models.StatusCode.Unauthorized => Unauthorized("You are unauthorized to delete!"),
 				_ => BadRequest("An unexpected error occurred."),
 			};
 		}

@@ -50,6 +50,32 @@ namespace Infrastructure.Migrations
                     b.ToTable("AddressEntity");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.ApiUserEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiUser");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.AppPlatformEntity", b =>
                 {
                     b.Property<int>("Id")

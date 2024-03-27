@@ -42,11 +42,13 @@ public class HomeController(ApiSubscribeService apiSubscribeService) : Controlle
         };
        
         var response = await _apiSubscribeService.CreateSubscribeAsync(subscrier);
+        
         var statusMessage = response.StatusCode switch
         {
             Infrastructure.Models.StatusCode.Ok => "success|You are successfully subscribed!",
             Infrastructure.Models.StatusCode.Exists => "warning|You are already subscribed!",
-            _ => "danger|Unknown error occurred!"
+			Infrastructure.Models.StatusCode.Unauthorized => "You are unauthorized to subscribe!",
+			_ => "danger|Unknown error occurred!"
         };
         
         return RedirectToAction("Index", new { statusMessage, scrollToSubscription = true });

@@ -39,7 +39,6 @@ builder.Services.AddScoped<TaskMasterService>();
 builder.Services.AddScoped<DownloadAppService>();
 builder.Services.AddScoped<IntegrationService>();
 builder.Services.AddScoped<SubscriptionSectionService>();
-builder.Services.AddScoped<UserService>();
 
 builder.Services.AddScoped<UserCourseService>();
 builder.Services.AddScoped<AddressService>();
@@ -84,6 +83,8 @@ builder.Services.AddAuthentication().AddGoogle(x =>
     x.ClientSecret = "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";
 
 });
+
+builder.Services.AddHttpClient();
 
 
 var app = builder.Build();

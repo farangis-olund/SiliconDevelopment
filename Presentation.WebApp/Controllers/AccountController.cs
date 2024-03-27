@@ -93,10 +93,12 @@ public class AccountController(UserManager<UserEntity> userManager,
 						ViewData["SatusMessage"] = "success|User is successfully deleted!";
 					else
 						ViewData["StatusMessage"] = "danger|Deleting process is failed!";
+					await _signInManager.RefreshSignInAsync(user);
 					return RedirectToAction("SignIn", "Auth");
+					
 				}
 
-				await _signInManager.RefreshSignInAsync(user);
+				
 			}
 			viewModel = await _accountService.GetAccountDetailsAsync(user);
 		}
@@ -116,6 +118,7 @@ public class AccountController(UserManager<UserEntity> userManager,
 			ViewData["StatusMessage"] = statusMessage;
 		}
 		var user = await _userManager.GetUserAsync(User);
+		
 		var viewModel = await _accountService.GetAccountDetailsAsync(user!);
 		
 		return View(viewModel);

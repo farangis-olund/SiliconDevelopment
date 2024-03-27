@@ -1,11 +1,13 @@
 ﻿using Infrastructure.Dtos;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[UseApiKey]
 public class SubscriberController(SubscriptionService subscriptionService) : ControllerBase
 {
 	private readonly SubscriptionService _subscriptionService = subscriptionService;
@@ -25,7 +27,7 @@ public class SubscriberController(SubscriptionService subscriptionService) : Con
 
 			return result.StatusCode switch
 			{
-				Infrastructure.Models.StatusCode.Ok => Created("", result.ContentResult),
+				Infrastructure.Models.StatusCode.Ok => Created(result.Message, result.ContentResult),
 				Infrastructure.Models.StatusCode.Exists => Conflict("Subscription already exists."),
 				_ => BadRequest("An unexpected error occurred."),
 			};

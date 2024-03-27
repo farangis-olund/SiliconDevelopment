@@ -128,7 +128,7 @@ public class CourseService(CourseRepository courseRepository, AuthorRepository a
 		{
 			var existingcourse = await _courseRepository.GetOneAsync(x => x.Id == id);
 
-			if (existingcourse != null)
+			if (existingcourse.StatusCode == StatusCode.Ok)
 			{
 				await _courseRepository.RemoveAsync(c => c.Id == id);
 				return ResponseFactory.Ok("Successfully removed!");
