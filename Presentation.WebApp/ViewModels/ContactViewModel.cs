@@ -1,5 +1,4 @@
-﻿using Infrastructure.Dtos;
-using Infrastructure.Entities;
+﻿using Infrastructure.Entities;
 using Infrastructure.Models;
 
 namespace Presentation.WebApp.ViewModels;

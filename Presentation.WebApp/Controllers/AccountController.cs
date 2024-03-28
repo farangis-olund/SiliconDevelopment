@@ -77,9 +77,9 @@ public class AccountController(UserManager<UserEntity> userManager,
 					var result = await _userManager.ChangePasswordAsync(user, viewModel.SecurityInfo.CurrentPassword, viewModel.SecurityInfo.Password);
 
 					if (result.Succeeded)
-						ViewData["ErrorMessage"] = " success|Password is saved successfully!";
+						ViewData["SatusMessage"] = " success|Password is saved successfully!";
 					else
-						ViewData["ErrorMessage"] = " danger|Password saving process failed!";
+						ViewData["SatusMessage"] = " danger|Password saving process failed!";
 				}
 				else
 				{

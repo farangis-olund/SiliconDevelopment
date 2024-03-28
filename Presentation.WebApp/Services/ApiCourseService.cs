@@ -4,7 +4,9 @@ using Infrastructure.Models;
 using Infrastructure.Services;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels;
+using System.Net;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace Presentation.WebApp.Services;
 public class ApiCourseService(CategoryService categoryService, HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
@@ -23,37 +25,85 @@ public class ApiCourseService(CategoryService categoryService, HttpClient httpCl
 			viewModel.Categories = ((List<CategoryEntity>)categoryResponse.ContentResult!).Select(c => new Category { Id = c.Id, Name = c.Name }).ToList();
 		}
 
-		var httpContext = _httpContextAccessor.HttpContext;
-		
-		if (httpContext!.Request.Cookies.TryGetValue("AccessToken", out var token))
+		var response = await _http.GetAsync($"https://localhost:7267/api/courses?key={_configuration["ApiKey"]}");
+		var json = await response.Content.ReadAsStringAsync();
+		var data = JsonConvert.DeserializeObject<ResponseResult>(json);
+
+		if (data!.StatusCode == StatusCode.Ok)
 		{
-			_http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			var courseEntities = JsonConvert.DeserializeObject<List<CourseEntity>>(data.ContentResult!.ToString()!);
+			viewModel.Courses = courseEntities!.Select(MapToCourseModel).ToList();
 
-			var response = await _http.GetAsync($"https://localhost:7267/api/courses?key={_configuration["ApiKey"]}");
-			var json = await response.Content.ReadAsStringAsync();
-			var data = JsonConvert.DeserializeObject<ResponseResult>(json);
-
-			if (data!.StatusCode == StatusCode.Ok)
-			{
-				var courseEntities = JsonConvert.DeserializeObject<List<CourseEntity>>(data.ContentResult!.ToString()!);
-				viewModel.Courses = courseEntities!.Select(MapToCourseModel).ToList();
-
-			}
 		}
-			
-
+		
 		return viewModel;
 	}
 
 	public async Task<CourseModel> PopulateOneCourseAsync(int id)
 	{
 		var viewModel = new CourseModel();
-		var httpContext = _httpContextAccessor.HttpContext;
 		
+		var response = await _http.GetAsync($"https://localhost:7267/api/course/{id}?key={_configuration["ApiKey"]}");
+		var json = await response.Content.ReadAsStringAsync();
+		var data = JsonConvert.DeserializeObject<ResponseResult>(json);
+
+		if (data!.StatusCode == StatusCode.Ok)
+		{
+			var courseEntity = JsonConvert.DeserializeObject<CourseEntity>(data.ContentResult!.ToString()!);
+			viewModel = MapToCourseModel(courseEntity!);
+		}
+			
+		return viewModel;
+	}
+
+	public async Task<CourseModel> CreateOneCourseAsync(CourseModel model)
+	{
+		var responseResult = new ResponseResult();
+		var httpContext = _httpContextAccessor.HttpContext;
+
 		if (httpContext!.Request.Cookies.TryGetValue("AccessToken", out var token))
 		{
 			_http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-			var response = await _http.GetAsync($"https://localhost:7267/api/course/{id}?key={_configuration["ApiKey"]}");
+
+			var jsonPayload = JsonConvert.SerializeObject(model);
+			var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+
+			var response = await _http.PostAsync($"https://localhost:7267/api/course?key={_configuration["ApiKey"]}", content);
+
+			switch (response.StatusCode)
+			{
+				case HttpStatusCode.Created:
+					var json = await response.Content.ReadAsStringAsync();
+					responseResult = JsonConvert.DeserializeObject<ResponseResult>(json)!;
+					break;
+				case HttpStatusCode.Conflict:
+					responseResult.StatusCode = StatusCode.Exists;
+					break;
+				case HttpStatusCode.Unauthorized:
+					responseResult.StatusCode = StatusCode.Unauthorized;
+					break;
+				default:
+					responseResult.StatusCode = StatusCode.Error;
+					break;
+			}
+			
+			return (CourseModel)responseResult.ContentResult!;
+		}
+		return model;
+	}
+
+
+	public async Task<CourseModel> DeleteOneCourseAsync(int id)
+	{
+		var viewModel = new CourseModel();
+		var httpContext = _httpContextAccessor.HttpContext;
+
+		if (httpContext!.Request.Cookies.TryGetValue("AccessToken", out var token))
+		{
+			_http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+			var response = await _http.DeleteAsync($"https://localhost:7267/api/course/{id}?key={_configuration["ApiKey"]}");
 			var json = await response.Content.ReadAsStringAsync();
 			var data = JsonConvert.DeserializeObject<ResponseResult>(json);
 
@@ -63,9 +113,36 @@ public class ApiCourseService(CategoryService categoryService, HttpClient httpCl
 				viewModel = MapToCourseModel(courseEntity!);
 			}
 		}
-		
+
 		return viewModel;
 	}
+
+	public async Task<CourseModel> UpdateOneCourseAsync(CourseModel model)
+	{
+		var viewModel = new CourseModel();
+		var httpContext = _httpContextAccessor.HttpContext;
+
+		if (httpContext!.Request.Cookies.TryGetValue("AccessToken", out var token))
+		{
+			_http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+			var jsonPayload = JsonConvert.SerializeObject(model);
+			var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+			var response = await _http.PutAsync($"https://localhost:7267/api/course/{model.Id}?key={_configuration["ApiKey"]}", content);
+			var json = await response.Content.ReadAsStringAsync();
+			var data = JsonConvert.DeserializeObject<ResponseResult>(json);
+
+			if (data!.StatusCode == StatusCode.Ok)
+			{
+				var courseEntity = JsonConvert.DeserializeObject<CourseEntity>(data.ContentResult!.ToString()!);
+				viewModel = MapToCourseModel(courseEntity!);
+			}
+		}
+
+		return viewModel;
+	}
+
 
 	private CourseModel MapToCourseModel(CourseEntity entity)
 	{

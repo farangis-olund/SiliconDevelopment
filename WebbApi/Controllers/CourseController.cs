@@ -9,13 +9,12 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [UseApiKey]
-[Authorize]
 public class CourseController (CourseService courseService) : ControllerBase
 {
 	private readonly CourseService _courseService = courseService;
 
 	#region Create
-	
+	[Authorize]
 	[HttpPost("/api/course")]
 	public async Task<IActionResult> Create(CourseRegistrationModel model)
 	{
@@ -88,7 +87,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 
 	}
 	#endregion
-
+	[Authorize]
 	#region Update
 	[HttpPut("/api/course/{id}")]
 	public async Task<IActionResult> UpdateOne(int id, CourseModel model)
@@ -116,7 +115,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 		}
 	}
 	#endregion
-
+	[Authorize]
 	#region Delete
 	[HttpDelete("/api/course/{id}")]
 	public async Task<IActionResult> DeleteOne(int id)

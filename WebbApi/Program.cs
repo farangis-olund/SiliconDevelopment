@@ -27,6 +27,9 @@ builder.Services.AddScoped<AuthorRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ApiUserRepository>();
 builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<ContactRepository>();
+builder.Services.AddScoped<ServiceRepository>();
+builder.Services.AddScoped<ContactService>();
 
 var app = builder.Build();
 

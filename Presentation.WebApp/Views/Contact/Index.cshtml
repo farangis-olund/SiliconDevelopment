@@ -17,6 +17,7 @@
 			}
 		</nav>
 		<div class="content">
+			
 			<div class="text-content">
 				<h1>@Model.Title</h1>
 				<div class="item">
@@ -48,6 +49,7 @@
 			</div>
 			<form method="post" asp-controller="Contact" asp-action="Index">
 				<h2>Get In Contact With Us</h2>
+				<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
 				<div id="form-fullname" class="input-group">
 					<label asp-for="Form.FullName"></label>
 					<span asp-validation-for="Form.FullName"></span>
@@ -61,7 +63,7 @@
 				<div id="form-service" class="input-group">
 					<label asp-for="Form.SelectedServiceId">Service <span>(optional)</span></label>
 					<div class="inputgroup">
-						<select id="service" asp-for="Form.SelectedServiceId" asp-items="@(new SelectList(Model.Services, "Id", "Name"))">
+						<select id="service" asp-for="Form.SelectedServiceId" asp-items="@Model.Services.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name })">
 							<option class="color-gray" value="">Choose the service you are interested in</option>
 						</select>
 						<i class="fa-regular fa-chevron-down"></i>

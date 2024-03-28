@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Infrastructure.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Models;
 
@@ -18,9 +19,12 @@ public class ContactModel
 
 	[Display(Name = "Service", Prompt = "Choose the service you are interested in", Order = 2)]
 	public int? SelectedServiceId { get; set; }
+	public string? ServiceName {  get; set; }
 
 	[Display(Name = "Message", Prompt = "Enter your message here...", Order = 3)]
 	[Required(ErrorMessage = "Message is required")]
 	[DataType(DataType.MultilineText)]
 	public string Message { get; set; } = null!;
+
+	
 }

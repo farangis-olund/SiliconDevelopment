@@ -2148,7 +2148,7 @@ footer .container .copyright span {
 }
 #courses .container .page-item.disabled .page-link {
   color: var(--color-gray-300);
-  background-color: transparent;
+  background-color: var(--color-gray-200);
   pointer-events: none;
 }
 #courses .container .page-item span {

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Services;
-using Presentation.WebApp.ViewModels;
 using Infrastructure.Models;
 
 namespace Presentation.WebApp.Controllers;
@@ -15,7 +14,8 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
     private readonly ApiCourseService _apiCourseService = apiCourseService;
     public readonly UserManager<UserEntity> _userManager = userManager; 
     private readonly UserCourseService _userCourseService = userCourseService;
-	#region Index
+
+	#region Index- Course GetAll, GetOne, Update, Delete 
 	[HttpGet]
 	[Route("/courses")]
 	public async Task<IActionResult> Index(string? statusMessage)
@@ -32,15 +32,36 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
 	}
 
     [HttpPost]
-    [Route("/courses")]
-    public IActionResult Index(CoursesViewModel viewModel)
+    [Route("/course")]
+    public async Task<IActionResult> Create(CourseModel viewModel)
     {
-       return View(viewModel);
-    }
-    #endregion
+		await _apiCourseService.CreateOneCourseAsync(viewModel);
 
-    #region Single course
-    [HttpGet("/course")]
+		return View(viewModel);
+	}
+
+	[HttpPut]
+	[Route("/course")]
+	public async Task<IActionResult> Update(CourseModel viewModel)
+	{
+		await _apiCourseService.UpdateOneCourseAsync(viewModel);
+
+		return View(viewModel);
+	}
+
+	[HttpDelete]
+	[Route("/course")]
+	public async Task<IActionResult> Delete(int id)
+	{
+		await _apiCourseService.DeleteOneCourseAsync(id);
+
+		return View();
+	}
+
+	#endregion
+
+	#region Single course
+	[HttpGet("/course")]
     public async Task<IActionResult> SingleCourse(int id)
     {
 		var	viewModel = await _apiCourseService.PopulateOneCourseAsync(id);
