@@ -157,6 +157,11 @@ namespace Infrastructure.Repositories
             }
 		}
 
+		public virtual async Task<List<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> predicate)
+		{
+			return await _context.Set<TEntity>().Where(predicate).ToListAsync();
+		}
+
 	}
 }
 

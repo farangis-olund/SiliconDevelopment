@@ -22,7 +22,13 @@ public class ApiCourseService(CategoryService categoryService, HttpClient httpCl
 
 		if (categoryResponse.StatusCode == StatusCode.Ok)
 		{
-			viewModel.Categories = ((List<CategoryEntity>)categoryResponse.ContentResult!).Select(c => new Category { Id = c.Id, Name = c.Name }).ToList();
+			viewModel.Categories =
+			[
+				new() { Id = 0, Name = "All categories" }
+			];
+
+			var categoriesFromDatabase = ((List<CategoryEntity>)categoryResponse.ContentResult!).Select(c => new Category { Id = c.Id, Name = c.Name });
+			viewModel.Categories.AddRange(categoriesFromDatabase);
 		}
 
 		var response = await _http.GetAsync($"https://localhost:7267/api/courses?key={_configuration["ApiKey"]}");
@@ -165,6 +171,7 @@ public class ApiCourseService(CategoryService categoryService, HttpClient httpCl
 			Digital = entity.Digital,
 			BestSeller = entity.BestSeller,
 			ImgUrl = entity.ImgUrl,
+			CategoryId = entity.CategoryId,
 			CategoryName = entity.Category.Name,
 			AuthorDescription = entity.Author.AuthorDescription,
 			Subscribers = entity.Author.Subscribers,

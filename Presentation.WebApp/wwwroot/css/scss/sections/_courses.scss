@@ -13,45 +13,48 @@
             }
 
             .tool-bar {
-                display: flex;
+                /*display: flex;
                 justify-content: center;
-                align-items: stretch;
+                align-items: stretch;*/
                 gap: 15px;
                 padding-top: 20px;
 
                 @include lg {
                     padding-top: 0;
                 }
+
+                form {
+                    display: flex;
+                    .inputgroup {
+                        input {
+                            padding: 10px 10px 10px 15px;
+                            width: 350px;
+
+                            @include lg {
+                                width: 300px;
+                            }
+                        }
+
+                        i {
+                            right: 15px;
+                            color: var(--color-gray);
+                        }
+                    }
+
+                    select {
+                        padding: 15px 25px 15px 15px;
+                        width: 300px;
+
+                        @include lg {
+                            width: 260px;
+                        }
+                    }
+                }
             }
 
             h2 {
                 margin: 0;
                 padding: 0;
-            }
-
-            .inputgroup {
-                input {
-                    padding: 10px 10px 10px 15px;
-                    width: 350px;
-
-                    @include lg {
-                        width: 300px;
-                    }
-                }
-
-                i {
-                    right: 15px;
-                    color: var(--color-gray);
-                }
-            }
-
-            select {
-                padding: 15px 25px 15px 15px;
-                width: 300px;
-
-                @include lg {
-                    width: 260px;
-                }
             }
         }
 
@@ -75,7 +78,7 @@
             list-style: none;
             padding: 0;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 40px;
             padding-bottom: 80px;
         }
 

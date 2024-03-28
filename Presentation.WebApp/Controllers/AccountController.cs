@@ -134,7 +134,7 @@ public class AccountController(UserManager<UserEntity> userManager,
 
 		string statusMessage = response.StatusCode switch
 		{
-			Infrastructure.Models.StatusCode.Ok => "success|You have successfully signed out the course!",
+			Infrastructure.Models.StatusCode.Ok => "success|You have successfully signed out from the course!",
 			Infrastructure.Models.StatusCode.Error => "danger|Course sign out process failed. Something went wrong!",
 			_ => "danger|Unknown error occurred!",
 		};

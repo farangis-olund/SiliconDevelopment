@@ -18,7 +18,7 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
 	#region Index- Course GetAll, GetOne, Update, Delete 
 	[HttpGet]
 	[Route("/courses")]
-	public async Task<IActionResult> Index(string? statusMessage)
+	public async Task<IActionResult> Index(string? statusMessage, int? selectedCategoryId, string? searchQuery)
 	{
        
 		if (!string.IsNullOrEmpty(statusMessage))
@@ -27,7 +27,25 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
         }
 
 		var viewModel = await _apiCourseService.PopulateAllCoursesAsync();
+
 		
+		viewModel.SelectedCategoryText = selectedCategoryId.HasValue ?
+			viewModel.Categories.FirstOrDefault(c => c.Id == selectedCategoryId)?.Name! : "All categories";
+
+		if (selectedCategoryId.HasValue && selectedCategoryId.Value != 0)
+		{
+			viewModel.SelectedCategoryId = (int)selectedCategoryId!;
+			viewModel.Courses = viewModel.Courses.Where(c => c.CategoryId  == selectedCategoryId).ToList();
+		}
+
+		if (!string.IsNullOrEmpty(searchQuery))
+		{
+			viewModel.Courses = viewModel.Courses
+		.Where(c => c.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)
+				 || c.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
+		.ToList();
+		}
+
 		return View(viewModel);
 	}
 

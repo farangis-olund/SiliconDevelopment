@@ -1,12 +1,23 @@
-﻿@model CoursesViewModel
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model CoursesViewModel
 @{
+	var request = HttpContextAccessor.HttpContext!.Request;
+	int currentPage = 1; 
+	if (request.Query.ContainsKey("page"))
+	{
+		int.TryParse(request.Query["page"], out currentPage);
+		if (currentPage <= 0)
+		{
+			currentPage = 1; 
+		}
+	}
+
 	// Pagination settings
-	int itemsPerPage = 9; // Number of items to display per page
-	int totalItems = 40; // Model.CourseModels.Count; // Total number of items
-	int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage); // Total number of pages
-	int currentPage = 1;//Request.Query.ContainsKey("page") ? Convert.ToInt32(Request.Query["page"]) : 1; 
-	int startIndex = (currentPage - 1) * itemsPerPage; // Start index of items for the current page
-	int endIndex = Math.Min(startIndex + itemsPerPage - 1, totalItems - 1); // End index of items for the current page
+	int itemsPerPage = 9; 
+	int totalItems = Model.Courses.Count; 
+	int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage); 
+	int startIndex = (currentPage - 1) * itemsPerPage; 
+	int endIndex = Math.Min(startIndex + itemsPerPage - 1, totalItems - 1);
 
 	var controller = Context.Items["BreadcrumbController"]?.ToString();
 	var action = Context.Items["BreadcrumbAction"]?.ToString();
@@ -27,23 +38,90 @@
 		<div class="heading">
             <h2 class="title">@Model.Title</h2> 
             <div class="tool-bar">
-                <div class="inputgroup">
-                    <select asp-for="@Model.SelectedCategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
-                        <option value="">All categories</option>
-                    </select>
-                    <i class="fa-regular fa-chevron-down"></i>
-                </div>
-                <div class="inputgroup">
-                    <input type="text" id="searchInput" asp-for="@Model.SearchQuery" placeholder="Search courses...">
-                    <i class="fa-regular fa-magnifying-glass"></i>
-                </div>
+				<form id="categoryForm" asp-controller="Courses" asp-action="Index" method="get">
+					<div class="inputgroup">
+						<select name="selectedCategoryId" id="categorySelect">
+							<option value="">@Model.SelectedCategoryText</option>
+							@foreach (var category in Model.Categories)
+							{
+								if (category.Id != Model.SelectedCategoryId)
+								{
+									<option value="@category.Id">@category.Name</option>
+								}
+							}
+						</select>
+						<i class="fa-regular fa-chevron-down"></i>
+					</div>
+					
+					<div class="inputgroup">
+						<input type="text" id="searchInput" name="searchQuery" placeholder="Search courses...">
+						<i class="fa-regular fa-magnifying-glass"></i>
+					</div>
+				</form>
             </div>
         </div>
-		
 		<partial name="~/Views/Shared/Sections/_StatusMessage.cshtml" />
-		
 		<div class="content-contaier">
-            <partial name="~/Views/Shared/Sections/_CoursePartial.cshtml" />
+			
+			@for (int i = startIndex; i <= endIndex; i++)
+			{
+				var course = Model.Courses[i];
+				<div class="course-item">
+					<div class="image-container">
+						<img src="~/images/courses/@course.ImgUrl" />
+
+						@if (ViewContext.RouteData.Values["controller"]!.ToString() == "Account")
+						{
+							<!-- Delete course button -->
+							<form asp-controller="Account" asp-action="DeleteCourse" method="post">
+								<input asp-for="@course.Id" name="id" type="hidden" value="@course.Id" />
+								<button class="btn-sell" type="submit"><i class="fa-solid fa-bookmark"></i></button>
+							</form>
+						}
+						else if (ViewContext.RouteData.Values["controller"]!.ToString() == "Courses")
+						{
+							<!-- Add course button -->
+							<form asp-controller="Courses" asp-action="Join" method="post">
+								<input asp-for="@course.Id" name="id" type="hidden" value="@course.Id" />
+								<button class="btn-sell" type="submit"><i class="fa-regular fa-bookmark"></i></button>
+							</form>
+						}
+
+
+						@if (course.BestSeller == true)
+						{
+							<div class="badge">Best Seller</div>
+						}
+					</div>
+
+					<div class="info">
+						<a class="menu-link" href="@Url.Action("SingleCourse", "Courses", new { id = course.Id })">@course.Name</a>
+						<p>By @course.AuthorName</p>
+						<div class="price">
+							@if (course.DiscountPrice == 0)
+							{
+								<p>$@course.Price</p>
+							}
+							else
+							{
+								<p><span class="red">$@course.DiscountPrice</span> <span class="gray">$@course.Price</span></p>
+							}
+
+						</div>
+
+						<hr />
+						<div class="duration-rating">
+							<div class="duration"><i class="fa-regular fa-clock"></i> @course.Duration hours</div>
+							<div class="rating">
+								<i class="fa-sharp fa-light fa-thumbs-up"></i>
+								<p>94%</p>
+								<p>(@FormatReviews.Reviews((int)course.ReviewsCount!))</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			}
 		</div>
 
 		<nav aria-label="Page navigation">
@@ -55,10 +133,11 @@
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
-				
-				@for (int i = 1; i <= 3; i++)
+
+				<!-- Pagination links -->
+				@for (int i = 1; i <= totalPages; i++)
 				{
-					<li class="page-item @(i == 1 ? "active" : "")">
+					<li class="page-item @(i == currentPage ? "active" : "")">
 						<a class="page-link" href="?page=@i">@i</a>
 					</li>
 				}
@@ -71,7 +150,6 @@
 				</li>
 			</ul>
 		</nav>
-
 		<div class="work-with-us">
 			<div class="banner-content">
 				<h5>Ready to get started?</h5>
@@ -82,3 +160,4 @@
 		</div>
     </div>
 </section>
+<script defer src="/js/categoryForm.js"></script>

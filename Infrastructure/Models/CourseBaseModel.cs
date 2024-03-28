@@ -21,7 +21,9 @@ public class CourseBaseModel
 	public bool Digital { get; set; } = false;
 	public bool BestSeller { get; set; } = false;
 	public string? ImgUrl { get; set; }
+	public int CategoryId { get; set; }
 	public string CategoryName { get; set; } = null!;
+
 	public string AuthorName { get; set; } = null!;
 	public string AuthorDescription { get; set; } = null!;
 	public int Subscribers { get; set; }
@@ -47,6 +49,7 @@ public class CourseBaseModel
 			Digital = entity.Digital,
 			BestSeller = entity.BestSeller,
 			ImgUrl = entity.ImgUrl,
+			CategoryId = entity.CategoryId,
 			CategoryName = entity.Category.Name,
 			AuthorName = entity.Author.AuthorName,
 			AuthorDescription = entity.Author.AuthorDescription,

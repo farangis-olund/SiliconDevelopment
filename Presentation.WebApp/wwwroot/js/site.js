@@ -40,7 +40,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     let sm = document.querySelector('#switch-mode');
-    console.log(sm)
+    
     sm.addEventListener('change', function () {
         let theme = this.checked ? "dark" : "light";
         fetch(`/settings/changetheme?theme=${theme}`)

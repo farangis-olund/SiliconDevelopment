@@ -11,4 +11,5 @@ public interface IRepo<TEntity> where TEntity : class
 	Task<ResponseResult> RemoveAsync(Expression<Func<TEntity, bool>> predicate);
 	Task<ResponseResult> UpdateAsync(Expression<Func<TEntity, bool>> predicate, TEntity entity);
 	Task<ResponseResult> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+
 }
