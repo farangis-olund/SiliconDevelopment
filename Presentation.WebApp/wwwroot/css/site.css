@@ -641,9 +641,6 @@ aside {
   border: none;
   padding-right: 20px;
 }
-aside img {
-  width: 100px;
-}
 @media (min-width: 992px) {
   aside {
     border-right: 1px solid var(--color-gray-300);
@@ -652,6 +649,41 @@ aside img {
 aside .profile-info {
   margin: 20px;
   text-align: center;
+}
+aside .profile-info .profile-img {
+  position: relative;
+  display: inline-block;
+}
+aside .profile-info .profile-img img {
+  width: 120px;
+}
+aside .profile-info .profile-img form {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 80px;
+  padding-top: 5px;
+}
+aside .profile-info .profile-img form .button-circle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  border-radius: 50%;
+  box-shadow: 0px 4px 9px -1px rgba(19, 16, 34, 0.03), 0px 4.4px 20px -1px rgba(19, 16, 34, 0.05);
+  color: var(--color-black);
+}
+aside .profile-info .profile-img form .button-circle i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+aside .profile-info .profile-img form .button-circle:hover {
+  cursor: pointer;
 }
 aside .profile-info h5 {
   margin-top: 15px;
@@ -748,6 +780,12 @@ aside nav .btn-theme-s {
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 70%;
+}
+@media (min-width: 992px) {
+  .breadcrumb {
+    width: 100%;
+  }
 }
 .breadcrumb a {
   font-size: 16px;
@@ -770,6 +808,11 @@ aside nav .btn-theme-s {
 .course-item {
   box-shadow: 0px 4px 13px -2px rgba(19, 16, 34, 0.2), 0px 4.8px 24.4px -6px rgba(19, 16, 34, 0.3);
   border-radius: 8px;
+}
+@media (min-width: 992px) {
+  .course-item {
+    width: 100%;
+  }
 }
 .course-item .image-container {
   position: relative;
@@ -902,10 +945,9 @@ aside nav .btn-theme-s {
   color: var(--color-black);
 }
 
-.contact-header {
-  background-color: var(--color-gray-100);
-}
-
+/*.contact-header {
+    background-color: var(--color-gray-100);
+}*/
 header {
   padding: 15px 0;
 }
@@ -932,7 +974,7 @@ header .container #menu-overlay {
   width: 100%;
   height: 100%;
   background-color: var(--color-gray-800);
-  z-index: 1;
+  z-index: 2;
   display: none;
 }
 header .container #menu-overlay.show-overlay {
@@ -945,7 +987,7 @@ header .container #menu-overlay.show-overlay {
 }
 header .container #menu {
   grid-area: menu;
-  z-index: 2;
+  z-index: 3;
   display: none;
 }
 header .container #menu.show-menu {
@@ -992,7 +1034,7 @@ header .container .btn-switch {
 header .container .account-buttons {
   grid-area: buttons;
   gap: 15px;
-  z-index: 4;
+  z-index: 9;
   display: none;
 }
 header .container .account-buttons i {
@@ -2069,9 +2111,6 @@ footer .container .copyright span {
   }
 }
 #courses .container .heading .tool-bar {
-  /*display: flex;
-  justify-content: center;
-  align-items: stretch;*/
   gap: 15px;
   padding-top: 20px;
 }
@@ -2081,15 +2120,22 @@ footer .container .copyright span {
   }
 }
 #courses .container .heading .tool-bar form {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 992px) {
+  #courses .container .heading .tool-bar form {
+    display: flex;
+    width: 100%;
+  }
 }
 #courses .container .heading .tool-bar form .inputgroup input {
   padding: 10px 10px 10px 15px;
-  width: 350px;
+  width: 100%;
 }
 @media (min-width: 992px) {
   #courses .container .heading .tool-bar form .inputgroup input {
-    width: 300px;
+    width: 250px;
   }
 }
 #courses .container .heading .tool-bar form .inputgroup i {
@@ -2098,11 +2144,11 @@ footer .container .copyright span {
 }
 #courses .container .heading .tool-bar form select {
   padding: 15px 25px 15px 15px;
-  width: 300px;
+  width: 100%;
 }
 @media (min-width: 992px) {
   #courses .container .heading .tool-bar form select {
-    width: 260px;
+    width: 250px;
   }
 }
 #courses .container .heading h2 {
@@ -2111,13 +2157,15 @@ footer .container .copyright span {
 }
 #courses .container .content-contaier {
   padding-top: 50px;
+  padding-bottom: 60px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem 1.7rem;
+  gap: 1rem 0.5rem;
 }
 @media (min-width: 992px) {
   #courses .container .content-contaier {
     grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 1.7rem;
   }
 }
 @media (min-width: 1200px) {
@@ -2130,8 +2178,7 @@ footer .container .copyright span {
   list-style: none;
   padding: 0;
   justify-content: center;
-  margin-top: 40px;
-  padding-bottom: 80px;
+  padding-bottom: 40px;
 }
 #courses .container .page-item {
   margin: 0 5px;

@@ -12,6 +12,7 @@ public class CoursesViewModel
 	public List<Category> Categories { get; set; } = [];
 	public int SelectedCourseId { get; set; }
 	public List<CourseModel> Courses { get; set; } = [];
+	public Pagination<CourseModel> Pagination { get; set; } = null!;
 
 }
 

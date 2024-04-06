@@ -1,14 +1,23 @@
 ﻿@model AccountDetailViewModel
 <aside>
 	<div class="profile-info">
-		@if(Model.ProfileInfo.ProfileImgUrl == null)
-		{
-			<img src="~/images/avatar.svg" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
-		}
-		else
-		{
-			<img src="~/images/@Model.ProfileInfo.ProfileImgUrl" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
-		}
+		<div class="profile-img">
+			@if (Model.ProfileInfo.ProfileImgUrl == null)
+			{
+				<img src="~/images/uploads/profiles/avatar.svg" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+			}
+			else
+			{
+				<img src="~/images/uploads/profiles/@Model.ProfileInfo.ProfileImgUrl" alt="@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")" />
+			}
+
+			<form enctype="multipart/form-data" method="post" asp-action="UploadProfileImage" asp-controller="Account">
+				<input id="fileUploader" type="file" name="file" hidden />
+				<label for="fileUploader" class="button-circle"><i class="fa-regular fa-refresh"></i> </label>
+			</form>
+		</div>
+		
+		
 		<h5>@($"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}")</h5>
 		<p>@Model.ProfileInfo.Email</p>
 	</div>

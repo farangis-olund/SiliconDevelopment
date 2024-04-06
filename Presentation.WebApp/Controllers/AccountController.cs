@@ -9,21 +9,21 @@ using Presentation.WebApp.ViewModels;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class AccountController(UserManager<UserEntity> userManager, 
-							   SignInManager<UserEntity> signInManager, 
+public class AccountController(UserManager<UserEntity> userManager,
+							   SignInManager<UserEntity> signInManager,
 							   AccountService accountService,
 							   UserCourseService userCourseService) : Controller
 {
-    private readonly UserManager<UserEntity> _userManager = userManager;
+	private readonly UserManager<UserEntity> _userManager = userManager;
 	private readonly SignInManager<UserEntity> _signInManager = signInManager;
 	private readonly AccountService _accountService = accountService;
 	private readonly UserCourseService _userCourseService = userCourseService;
 
 	#region Index - Details
 	[HttpGet]
-    [Route("/account")]
-    public async Task<IActionResult> Index()
-    {
+	[Route("/account")]
+	public async Task<IActionResult> Index()
+	{
 		var user = await _userManager.GetUserAsync(User);
 		if (user == null)
 			return NotFound();
@@ -32,7 +32,7 @@ public class AccountController(UserManager<UserEntity> userManager,
 		return View(viewModel);
 
 	}
-	
+
 	[HttpPost]
 	[Route("/account")]
 	public async Task<IActionResult> Index(AccountDetailViewModel viewModel)
@@ -40,14 +40,14 @@ public class AccountController(UserManager<UserEntity> userManager,
 		var user = await _userManager.GetUserAsync(User);
 		if (user == null)
 			return NotFound();
-		
-			var success = await _accountService.UpdateAccountAsync(user, viewModel);
-			if (!success)
-			{
-				ViewData["StatusMessage"] = "danger|Failed to update account details!";
-				return View(viewModel);
-			}
-		
+
+		var success = await _accountService.UpdateAccountAsync(user, viewModel);
+		if (!success)
+		{
+			ViewData["StatusMessage"] = "danger|Failed to update account details!";
+			return View(viewModel);
+		}
+
 		return RedirectToAction("Index");
 
 	}
@@ -72,7 +72,7 @@ public class AccountController(UserManager<UserEntity> userManager,
 		{
 			if (viewModel.SecurityInfo != null)
 			{
-				if (viewModel.SecurityInfo.CurrentPassword != null && viewModel.SecurityInfo.Password != null && (viewModel.SecurityInfo.ConfirmPassword != null && viewModel.SecurityInfo.Password  == viewModel.SecurityInfo.ConfirmPassword))
+				if (viewModel.SecurityInfo.CurrentPassword != null && viewModel.SecurityInfo.Password != null && (viewModel.SecurityInfo.ConfirmPassword != null && viewModel.SecurityInfo.Password == viewModel.SecurityInfo.ConfirmPassword))
 				{
 					var result = await _userManager.ChangePasswordAsync(user, viewModel.SecurityInfo.CurrentPassword, viewModel.SecurityInfo.Password);
 
@@ -95,10 +95,10 @@ public class AccountController(UserManager<UserEntity> userManager,
 						ViewData["StatusMessage"] = "danger|Deleting process is failed!";
 					await _signInManager.RefreshSignInAsync(user);
 					return RedirectToAction("SignIn", "Auth");
-					
+
 				}
 
-				
+
 			}
 			viewModel = await _accountService.GetAccountDetailsAsync(user);
 		}
@@ -118,18 +118,18 @@ public class AccountController(UserManager<UserEntity> userManager,
 			ViewData["StatusMessage"] = statusMessage;
 		}
 		var user = await _userManager.GetUserAsync(User);
-		
+
 		var viewModel = await _accountService.GetAccountDetailsAsync(user!);
-		
+
 		return View(viewModel);
 	}
-	
+
 	[HttpPost]
 	[Route("/account/DeleteCourse")]
 	public async Task<IActionResult> DeleteCourse(int id)
 	{
 		var user = await _userManager.GetUserAsync(User);
-		
+
 		var response = await _userCourseService.DeleteUserCourseAsync(user!.Id, id);
 
 		string statusMessage = response.StatusCode switch
@@ -161,4 +161,27 @@ public class AccountController(UserManager<UserEntity> userManager,
 	}
 	#endregion
 
+	[HttpPost]
+	[Route("/account/upload")]
+	public async Task<IActionResult> UploadProfileImage(IFormFile file)
+	{
+		var user = await _userManager.GetUserAsync(User);
+		if (user !=null && file != null && file.Length != 0)
+		{
+			var fileName = $"p_{user.Id}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploads/profiles", fileName);
+
+			using var fs = new FileStream(filePath, FileMode.Create);
+			await file.CopyToAsync(fs);
+
+			user.ProfileImgUrl = fileName;
+			await _userManager.UpdateAsync(user);
+		}
+		else
+		{
+			TempData["StatusMessage"] = "Unable to upload profile image!";
+		}
+
+		return RedirectToAction("Index", "Account");
+	}
 }

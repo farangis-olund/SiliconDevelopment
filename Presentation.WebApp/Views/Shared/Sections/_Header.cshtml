@@ -43,10 +43,10 @@
                 var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
                 if(user!.ProfileImgUrl == null)
                 {
-                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/avatar.svg" /></a>
+                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/uploads/profiles/avatar.svg" /></a>
                 }else
                 {
-                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/@user!.ProfileImgUrl" /></a>
+                    <a asp-controller="Account" asp-action="Index"> <img class="avatar" src="~/images/uploads/profiles/@user!.ProfileImgUrl" /></a>
                 }
                 
             } else

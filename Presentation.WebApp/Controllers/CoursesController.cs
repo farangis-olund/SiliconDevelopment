@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Services;
 using Infrastructure.Models;
+using Infrastructure.Migrations;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -41,15 +42,14 @@ public class CoursesController(ApiCourseService apiCourseService, UserManager<Us
 		if (!string.IsNullOrEmpty(searchQuery))
 		{
 			viewModel.Courses = viewModel.Courses
-		.Where(c => c.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)
+				.Where(c => c.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)
 				 || c.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
-		.ToList();
+			.ToList();
 		}
-
+		viewModel.Pagination = new Pagination<CourseModel>(viewModel.Courses, 1, 9);
 		return View(viewModel);
 	}
-
-    [HttpPost]
+	[HttpPost]
     [Route("/course")]
     public async Task<IActionResult> Create(CourseModel viewModel)
     {

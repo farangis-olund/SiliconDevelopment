@@ -3,9 +3,12 @@
     const mobileMenu = document.getElementById('menu');
     const mobileAccountButtons = document.querySelector('.account-buttons');
     const menuOverlay = document.getElementById('menu-overlay');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    const accountButtons = document.querySelectorAll('.account-buttons a');
+    const switchMode = document.querySelector('#switch-mode');
 
-    const hideMenuAndOverlay = () => {
-        mobileMenu.classList.remove('show-menu');
+    const hideMenuAndOverlay = (menu) => {
+        menu.classList.remove('show-menu');
         mobileAccountButtons.classList.remove('show-buttons');
         menuOverlay.classList.remove('show-overlay');
     };
@@ -16,33 +19,38 @@
         menuOverlay.classList.toggle('show-overlay');
     });
 
-    const menuLinks = document.querySelectorAll('.menu-link');
     menuLinks.forEach(link => {
-        link.addEventListener('click', hideMenuAndOverlay);
+        link.addEventListener('click', () => hideMenuAndOverlay(mobileMenu)); 
     });
 
-    const accountButtons = document.querySelectorAll('.account-buttons a');
     accountButtons.forEach(button => {
-        button.addEventListener('click', hideMenuAndOverlay);
+        button.addEventListener('click', () => hideMenuAndOverlay(mobileMenu)); 
     });
 
     const checkScreenSize = () => {
         if (window.innerWidth >= 1200) {
-            hideMenuAndOverlay();
-        } else {
-           
+            hideMenuAndOverlay(mobileMenu); 
         }
     };
 
-    window.addEventListener('resize', checkScreenSize);
-    checkScreenSize();
-});
+    const throttle = (func, limit) => {
+        let inThrottle;
+        return function () {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    };
 
-document.addEventListener('DOMContentLoaded', function () {
-    let sm = document.querySelector('#switch-mode');
-    
-    sm.addEventListener('change', function () {
-        let theme = this.checked ? "dark" : "light";
+    window.addEventListener('resize', throttle(checkScreenSize, 200));
+    checkScreenSize();
+
+    switchMode.addEventListener('change', function () {
+        const theme = this.checked ? "dark" : "light";
         fetch(`/settings/changetheme?theme=${theme}`)
             .then(res => {
                 if (res.ok) {
@@ -55,4 +63,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error changing theme:', error);
             });
     });
+
+    handleProfileImage();
+
 });
+
+function handleProfileImage() {
+    try {
+        let fileUploader = document.querySelector('#fileUploader')
+        if (fileUploader != undefined) {
+            fileUploader.addEventListener('change', function () {
+                if (this.files.length > 0) {
+                    this.form.submit()
+                }
+            })
+        }
+    }
+    catch { }
+}

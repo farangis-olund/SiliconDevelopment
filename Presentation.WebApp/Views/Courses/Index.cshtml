@@ -13,10 +13,10 @@
 	}
 
 	// Pagination settings
-	int itemsPerPage = 9; 
-	int totalItems = Model.Courses.Count; 
+	int itemsPerPage = Model.Pagination.ItemsPerPage; 
+	int totalItems = Model.Pagination.TotalItems;
 	int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage); 
-	int startIndex = (currentPage - 1) * itemsPerPage; 
+	int startIndex = (currentPage - 1) * itemsPerPage;
 	int endIndex = Math.Min(startIndex + itemsPerPage - 1, totalItems - 1);
 
 	var controller = Context.Items["BreadcrumbController"]?.ToString();
@@ -65,7 +65,7 @@
 			
 			@for (int i = startIndex; i <= endIndex; i++)
 			{
-				var course = Model.Courses[i];
+				var course = Model.Courses[i]; 
 				<div class="course-item">
 					<div class="image-container">
 						<img src="~/images/courses/@course.ImgUrl" />
@@ -123,33 +123,37 @@
 
 			}
 		</div>
+		
+		@if (totalPages > 1)
+		{
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
 
-		<nav aria-label="Page navigation">
-			<ul class="pagination">
-
-				<!-- Left arrow icon -->
-				<li class="page-item @(currentPage == 1 ? "disabled" : "")">
-					<a class="page-link" href="?page=@(currentPage - 1)" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-
-				<!-- Pagination links -->
-				@for (int i = 1; i <= totalPages; i++)
-				{
-					<li class="page-item @(i == currentPage ? "active" : "")">
-						<a class="page-link" href="?page=@i">@i</a>
+					<!-- Left arrow icon -->
+					<li class="page-item @(currentPage == 1 ? "disabled" : "")">
+						<a class="page-link" href="?page=@(currentPage - 1)" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
 					</li>
-				}
 
-				<!-- Right arrow icon -->
-				<li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-					<a class="page-link" href="?page=@(currentPage + 1)" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
+					<!-- Pagination links -->
+					@for (int i = 1; i <= totalPages; i++)
+					{
+						<li class="page-item @(i == currentPage ? "active" : "")">
+							<a class="page-link" href="?page=@i">@i</a>
+						</li>
+					}
+
+					<!-- Right arrow icon -->
+					<li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+						<a class="page-link" href="?page=@(currentPage + 1)" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		}
+		
 		<div class="work-with-us">
 			<div class="banner-content">
 				<h5>Ready to get started?</h5>

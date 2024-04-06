@@ -1,5 +1,4 @@
-﻿
-using Infrastructure.Factories;
+﻿using Infrastructure.Factories;
 using Infrastructure.Interfaces;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,6 @@ namespace Infrastructure.Repositories
 		protected Repo(TContext context)
 		{
 			_context = context;
-
 		}
 
 		public virtual async Task<ResponseResult> AddAsync(TEntity entity)

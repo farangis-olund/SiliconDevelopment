@@ -1,7 +1,12 @@
 ﻿.course-item {
     @include shadow-l;
     border-radius: 8px;
- 
+   
+
+    @include lg {
+        width: 100%;
+    }
+
     .image-container {
         position: relative;
 
