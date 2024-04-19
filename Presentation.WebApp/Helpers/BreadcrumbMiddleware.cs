@@ -1,13 +1,8 @@
 ﻿namespace Presentation.WebApp.Helpers;
 
-public class BreadcrumbMiddleware
+public class BreadcrumbMiddleware(RequestDelegate next)
 {
-	private readonly RequestDelegate _next;
-
-	public BreadcrumbMiddleware(RequestDelegate next)
-	{
-		_next = next;
-	}
+	private readonly RequestDelegate _next = next;
 
 	public async Task Invoke(HttpContext context)
 	{

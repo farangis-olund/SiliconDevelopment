@@ -99,7 +99,6 @@ public class AccountService(UserManager<UserEntity> userManager,
 				var basicInfoUpdateResult = await _userManager.UpdateAsync(user);
 				if (!basicInfoUpdateResult.Succeeded)
 				{
-					// Failed to update basic info
 					return false;
 				}
 			}
@@ -125,7 +124,6 @@ public class AccountService(UserManager<UserEntity> userManager,
 						var addressUpdateResult = await _addressService.UpdateAddressAsync(addressEntity);
 						if (addressUpdateResult.StatusCode != StatusCode.Ok)
 						{
-							// Failed to update address
 							return false;
 						}
 					}
@@ -150,13 +148,11 @@ public class AccountService(UserManager<UserEntity> userManager,
 						var userUpdateResult = await _userManager.UpdateAsync(user);
 						if (!userUpdateResult.Succeeded)
 						{
-							// Failed to update user with new address ID
 							return false;
 						}
 					}
 					else
 					{
-						// Failed to add new address
 						return false;
 					}
 				}

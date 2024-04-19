@@ -87,6 +87,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 
 	}
 	#endregion
+	
 	[Authorize]
 	#region Update
 	[HttpPut("/api/course/{id}")]
@@ -115,6 +116,7 @@ public class CourseController (CourseService courseService) : ControllerBase
 		}
 	}
 	#endregion
+	
 	[Authorize]
 	#region Delete
 	[HttpDelete("/api/course/{id}")]
