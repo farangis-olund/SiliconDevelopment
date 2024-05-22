@@ -8,7 +8,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[UseApiKey]
+//[UseApiKey]
 public class CourseController (CourseService courseService) : ControllerBase
 {
 	private readonly CourseService _courseService = courseService;
